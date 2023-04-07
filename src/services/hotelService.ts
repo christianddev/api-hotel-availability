@@ -136,7 +136,6 @@ export const updateHotel = async ({
 }: HotelRequest): Promise<any | undefined> => {
   try {
     const affectedRows = await updateHotelFromModel({ code, name });
-    console.log('affectedRows', affectedRows);
 
     return {
       data: { affectedRows }
