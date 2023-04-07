@@ -1,15 +1,14 @@
 import swaggerJSDoc from 'swagger-jsdoc';
-
 import type { OAS3Definition, OAS3Options } from 'swagger-jsdoc';
 
+import { SERVER_ENVIRONMENT, SERVER_PORT } from '../config';
+import defaultResponses from './responses/defaultResponses';
+import defaultSchemas from './schemas/defaultSchemas';
+import hotelResponses from './responses/hotelResponses';
+import hotelSchemas from './schemas/hotelSchemas';
+import hotelsExamples from './examples/hotelsExamples';
 import links from './common/links';
 import parameters from './common/parameters';
-import defaultSchemas from './schemas/defaultSchemas';
-import hotelSchemas from './schemas/hotelSchemas';
-import hotelResponses from './responses/hotelResponses';
-import defaultResponses from './responses/defaultResponses';
-import hotelsExamples from './examples/hotelsExamples';
-import { SERVER_ENVIRONMENT, SERVER_PORT } from '../config';
 
 const swaggerDefinition: OAS3Definition = {
   openapi: '3.0.0',
