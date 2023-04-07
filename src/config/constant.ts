@@ -14,11 +14,13 @@ export const SERVER_BASE_URL = process.env.SERVER_BASE_URL ?? 'api';
 export const SERVER_LOGGING = Boolean(process.env.SERVER_LOGGING);
 
 // API Path Routes
-export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? '';
+export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? 'hotels';
+export const SERVER_URL_ROOM = process.env.SERVER_URL_ROOM ?? 'rooms';
 export const SERVER_DOCUMENTATION_URL =
   process.env.SERVER_DOCUMENTATION_URL ?? '/documentation';
 export const DOCUMENTATION_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_DOCUMENTATION_URL}`;
 export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_HOTEL}`;
+export const ROOM_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_ROOM}`;
 
 // DATABASE BASE CONFIG
 export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
@@ -58,7 +60,9 @@ export const HOTEL_MODEL_NAME: string =
 export const HOTEL_ID_FIELD_NAME: string =
   process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'code';
 export const HOTEL_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_code';
+  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_id';
+export const HOTEL_FK_ID_FIELD_NAME_SEQUELIZE: string =
+  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME_SEQUELIZE ?? 'hotelId';
 export const HOTEL_MODEL_CODE_LENGTH: number =
   Number(process.env.DATABASE_HOTEL_MODEL_CODE_LENGTH) ?? 150;
 export const HOTEL_MODEL_NAME_LENGTH: number =
@@ -70,7 +74,7 @@ export const ROOM_MODEL_NAME: string =
 export const ROOM_ID_FIELD_NAME: string =
   process.env.DATABASE_ROOM_ID_FIELD_NAME ?? 'id';
 export const ROOM_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_ROOM_FK_ID_FIELD_NAME ?? 'room_code';
+  process.env.DATABASE_ROOM_FK_ID_FIELD_NAME ?? 'room_id';
 export const ROOM_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_ROOM_MODEL_NAME_LENGTH) ?? 150;
 export const ROOM_MODEL_CODE_LENGTH: number =
@@ -82,7 +86,7 @@ export const RATE_MODEL_NAME: string =
 export const RATE_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_ID_FIELD_NAME ?? 'id';
 export const RATE_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_code';
+  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_id';
 export const RATE_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_RATE_MODEL_NAME_LENGTH) ?? 150;
 export const RATE_MODEL_CODE_LENGTH: number =

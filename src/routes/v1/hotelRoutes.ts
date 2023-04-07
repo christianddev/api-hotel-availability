@@ -15,6 +15,7 @@ import {
   validateHotelByCodeExistsIntoDataBase,
   validateNameFromBodyNotFalsy
 } from '../../middleware';
+import roomRoutes from './roomRoutes';
 
 const hotelRouter = Router();
 
@@ -167,4 +168,5 @@ hotelRouter.delete(
   deleteHotel
 );
 
+hotelRouter.use(`/:hotelCode/rooms`, roomRoutes);
 export default hotelRouter;

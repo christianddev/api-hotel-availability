@@ -12,7 +12,6 @@ import {
   RATE_MODEL_NAME,
   ROOM_FK_ID_FIELD_NAME,
   ROOM_ID_FIELD_NAME,
-  ROOM_MODEL_CODE_LENGTH,
   ROOM_MODEL_NAME,
   UPDATED_AT_FIELD_NAME
 } from '../../config/';
@@ -45,8 +44,8 @@ export const RateModel = sequelize.define(
       field: RATE_CHECK_OUT_FIELD_NAME,
       defaultValue: DataTypes.NOW
     },
-    roomCode: {
-      type: DataTypes.STRING(ROOM_MODEL_CODE_LENGTH),
+    roomId: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {
         model: ROOM_MODEL_NAME,

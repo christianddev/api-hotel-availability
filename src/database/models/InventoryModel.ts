@@ -10,7 +10,6 @@ import {
   PRICE_SCALE,
   RATE_FK_ID_FIELD_NAME,
   RATE_ID_FIELD_NAME,
-  RATE_MODEL_CODE_LENGTH,
   RATE_MODEL_NAME,
   UPDATED_AT_FIELD_NAME
 } from '../../config';
@@ -36,8 +35,8 @@ export const InventoryModel = sequelize.define(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
     },
-    rateCode: {
-      type: DataTypes.STRING(RATE_MODEL_CODE_LENGTH),
+    rateId: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {
         model: RATE_MODEL_NAME,

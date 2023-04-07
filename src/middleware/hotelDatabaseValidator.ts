@@ -37,7 +37,6 @@ export const validateHotelByCodeNotExistsIntoDataBase = async (
     const code: string = req?.params?.code;
     const hotel = await findOneHotelByCode({ code }, true);
 
-    console.log('hotel', hotel);
     if (!hotel) {
       const error: ErrorOperation = {
         status: httpStatus?.NOT_FOUND,
