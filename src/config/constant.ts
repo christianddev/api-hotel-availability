@@ -11,6 +11,7 @@ export const SERVER_PUBLIC_DIR = process.env.SERVER_PUBLIC_DIR ?? 'public';
 export const SERVER_API_VERSION_URL =
   process.env.SERVER_API_VERSION_URL ?? 'v1';
 export const SERVER_BASE_URL = process.env.SERVER_BASE_URL ?? 'api';
+export const SERVER_LOGGING = Boolean(process.env.SERVER_LOGGING);
 
 // API Path Routes
 export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? '';
@@ -20,7 +21,7 @@ export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_U
 export const DOCUMENTATION_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_DOCUMENTATION_URL}`;
 
 // DATABASE BASE CONFIG
-export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '3306';
+export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
 export const DATABASE_NAME: string =
   process.env.DATABASE_NAME ?? 'hotel_availability';
 export const DATABASE_USER: string = process.env.DATABASE_USER ?? 'root';
