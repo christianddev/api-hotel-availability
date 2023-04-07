@@ -6,13 +6,6 @@
     "allowJs": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "paths": {
-      "@routes/*": ["./src/routes/*"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@database/*": ["./src/database/*"],
-      "@services/*": ["./src/services/*"],
-      "@config/*": ["./src/config/*"]
-    },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
