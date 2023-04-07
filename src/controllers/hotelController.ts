@@ -2,7 +2,7 @@ import { type Request, type Response } from 'express';
 import httpStatus from 'http-status';
 
 import { findAllHotels } from '../services';
-import { defaultErrorResponse } from './controllerUtils';
+import { defaultErrorResponse } from './utils';
 
 export const getHotels = async (
   _req: Request,
