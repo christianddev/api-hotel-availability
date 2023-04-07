@@ -6,3 +6,10 @@ export interface Hotel {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface HotelRequest {
+  id?: string;
+  code: string;
+  name?: string;
+  isDeleted?: boolean;
+}

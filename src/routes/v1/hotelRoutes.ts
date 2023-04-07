@@ -1,8 +1,19 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express';
 
-import { getHotel, getHotels } from '../../controllers';
-import { Logger, validateId } from '../../middleware';
+import {
+  deleteHotel,
+  getHotel,
+  getHotels,
+  patchHotel,
+  postHotel
+} from '../../controllers';
+import {
+  Logger,
+  validateHotelByCodeDataBase,
+  validateCodeNotFalsy,
+  validateNameNotFalsy
+} from '../../middleware';
 
 const hotelRouter = Router();
 
@@ -36,7 +47,7 @@ hotelRouter.get('/', [Logger], getHotels);
  *      summary: "Get Hotel"
  *      operationId: getHotel
  *      parameters:
- *        - $ref: "#/components/parameters/id"
+ *        - $ref: "#/components/parameters/code"
  *      description: "Returns the information of an hotel.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
@@ -48,5 +59,107 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get('/:code', [Logger, validateId], getHotel);
+hotelRouter.get('/:code', [Logger, validateCodeNotFalsy], getHotel);
+
+/**
+ * Create Hotel
+ * @openapi
+ * /api/v1/hotels:
+ *    post:
+ *      tags:
+ *        - Hotels
+ *      summary: "Create Hotel"
+ *      operationId: createHotel
+ *      description: "This endpoint will add a new record to the **hotels** table.<br><br>**name** and **country** fields must be unique.<br><br>The information in the country field must be of type ISO Code Alpha-3.<br><br>for example:*USA, ESP...*"
+ *      requestBody:
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/hotelRequest"
+ *      responses:
+ *        '201':
+ *          $ref: "#/components/responses/postHotel"
+ *        '400':
+ *          $ref: "#/components/responses/postHotelBadRequest"
+ *        '500':
+ *          $ref: "#/components/responses/internalServerError"
+ *      security:
+ *       - jwtAuth: []
+ */
+hotelRouter.post(
+  '/',
+  [Logger, validateNameNotFalsy, validateHotelByCodeDataBase],
+  postHotel
+);
+
+/**
+ * Update Hotel
+ * @openapi
+ * /api/v1/hotels/{code}:
+ *    patch:
+ *      tags:
+ *        - Hotels
+ *      summary: "Update Hotel"
+ *      operationId: updateHotel
+ *      parameters:
+ *        - $ref: "#/components/parameters/code"
+ *      description: "Update the hotel's **name** or **country**, the new data must be unique in combination."
+ *      requestBody:
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/hotelUpdateRequest"
+ *      responses:
+ *        '200':
+ *          $ref: "#/components/responses/patchHotel"
+ *        '400':
+ *          $ref: "#/components/responses/patchHotelBadRequest"
+ *        '404':
+ *          $ref: "#/components/responses/hotelNotFound"
+ *        '500':
+ *          $ref: "#/components/responses/internalServerError"
+ *      security:
+ *       - jwtAuth: []
+ */
+hotelRouter.patch(
+  '/:code',
+  [
+    Logger,
+    validateCodeNotFalsy,
+    validateNameNotFalsy,
+    validateHotelByCodeDataBase
+  ],
+  patchHotel
+);
+
+/**
+ * Delete Hotel
+ * @openapi
+ * /api/v1/hotels/{code}:
+ *    delete:
+ *      tags:
+ *        - Hotels
+ *      summary: "Delete Hotel"
+ *      operationId: deleteHotel
+ *      parameters:
+ *        - $ref: "#/components/parameters/code"
+ *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, deleting a record means deleting its relationship with books in the **booksauthors** table, and updating the author table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *      responses:
+ *        '200':
+ *          $ref: "#/components/responses/deletedHotel"
+ *        '404':
+ *          $ref: "#/components/responses/hotelNotFound"
+ *        '500':
+ *          $ref: "#/components/responses/internalServerError"
+ *      security:
+ *       - jwtAuth: []
+ */
+hotelRouter.delete(
+  '/:code',
+  [Logger, validateCodeNotFalsy, validateHotelByCodeDataBase],
+  deleteHotel
+);
+
 export default hotelRouter;
