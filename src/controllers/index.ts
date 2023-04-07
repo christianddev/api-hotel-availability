@@ -1,2 +1,2 @@
-export * from './controllerUtils';
+export * from './utils';
 export * from './hotelController';

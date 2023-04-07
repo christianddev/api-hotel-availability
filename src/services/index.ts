@@ -1,2 +1,2 @@
 export * from './hotelService';
-export * from './serviceUtils';
+export * from './utils';
