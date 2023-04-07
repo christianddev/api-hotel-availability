@@ -16,9 +16,9 @@ export const SERVER_LOGGING = Boolean(process.env.SERVER_LOGGING);
 // API Path Routes
 export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? '';
 export const SERVER_DOCUMENTATION_URL =
-  process.env.SERVER_DOCUMENTATION_URL ?? '';
-export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_HOTEL}`;
+  process.env.SERVER_DOCUMENTATION_URL ?? '/documentation';
 export const DOCUMENTATION_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_DOCUMENTATION_URL}`;
+export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_HOTEL}`;
 
 // DATABASE BASE CONFIG
 export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';

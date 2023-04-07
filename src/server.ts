@@ -1,9 +1,14 @@
 import cors from 'cors';
 import express, { type Application } from 'express';
+import swaggerUi from 'swagger-ui-express';
 
-// import swaggerUi from 'swagger-ui-express';
-import { HOTEL_PATH, SERVER_PORT, SERVER_PUBLIC_DIR } from './config/constant';
-// import { sequelize as database } from './models';
+import {
+  DOCUMENTATION_PATH,
+  HOTEL_PATH,
+  SERVER_PORT,
+  SERVER_PUBLIC_DIR
+} from './config/';
+import swaggerSetup from './docs/swagger';
 import { hotelRoutes } from './routes/v1';
 import { sequelize } from './database/configuration';
 
@@ -26,7 +31,8 @@ function middleware(app: Application): void {
 function routes(app: Application): void {
   console.log({ HOTEL_PATH });
   app.use(HOTEL_PATH, hotelRoutes);
-  // app.use(DOCUMENTATION_PATH, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
+  console.log({ DOCUMENTATION_PATH });
+  app.use(DOCUMENTATION_PATH, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 }
 
 function listen(app: Application, port: string): void {

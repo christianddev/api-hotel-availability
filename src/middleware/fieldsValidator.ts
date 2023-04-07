@@ -3,12 +3,12 @@ import type { NextFunction, Request, Response } from 'express';
 
 import type { ErrorOperation } from '../types/api';
 
-export const validateCodeNotFalsy = (
+export const validateCodeFromParamsNotFalsy = (
   req: Request,
   res: Response,
   next: NextFunction
 ): Response | undefined => {
-  if (req?.params?.code === '') {
+  if (!req?.params?.code) {
     const error: ErrorOperation = {
       status: httpStatus?.BAD_REQUEST,
       message: "check 'code' field"
@@ -18,7 +18,7 @@ export const validateCodeNotFalsy = (
   next();
 };
 
-export const validateNameNotFalsy = (
+export const validateNameFromBodyNotFalsy = (
   req: Request,
   res: Response,
   next: NextFunction

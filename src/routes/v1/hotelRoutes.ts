@@ -11,8 +11,8 @@ import {
 import {
   Logger,
   validateHotelByCodeDataBase,
-  validateCodeNotFalsy,
-  validateNameNotFalsy
+  validateCodeFromParamsNotFalsy,
+  validateNameFromBodyNotFalsy
 } from '../../middleware';
 
 const hotelRouter = Router();
@@ -23,7 +23,7 @@ const hotelRouter = Router();
  * /api/v1/hotels:
  *    get:
  *      tags:
- *        - hotels
+ *        - Hotels
  *      operationId: getAllHotels
  *      summary: "Get list of hotels"
  *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br> if the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
@@ -59,7 +59,7 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get('/:code', [Logger, validateCodeNotFalsy], getHotel);
+hotelRouter.get('/:code', [Logger, validateCodeFromParamsNotFalsy], getHotel);
 
 /**
  * Create Hotel
@@ -70,7 +70,7 @@ hotelRouter.get('/:code', [Logger, validateCodeNotFalsy], getHotel);
  *        - Hotels
  *      summary: "Create Hotel"
  *      operationId: createHotel
- *      description: "This endpoint will add a new record to the **hotels** table.<br><br>**name** and **country** fields must be unique.<br><br>The information in the country field must be of type ISO Code Alpha-3.<br><br>for example:*USA, ESP...*"
+ *      description: "This endpoint will add a new record to the **hotels** table.<br><br>**code** field must be unique."
  *      requestBody:
  *          required: true
  *          content:
@@ -89,7 +89,7 @@ hotelRouter.get('/:code', [Logger, validateCodeNotFalsy], getHotel);
  */
 hotelRouter.post(
   '/',
-  [Logger, validateNameNotFalsy, validateHotelByCodeDataBase],
+  [Logger, validateNameFromBodyNotFalsy, validateHotelByCodeDataBase],
   postHotel
 );
 
@@ -104,7 +104,7 @@ hotelRouter.post(
  *      operationId: updateHotel
  *      parameters:
  *        - $ref: "#/components/parameters/code"
- *      description: "Update the hotel's **name** or **country**, the new data must be unique in combination."
+ *      description: "Update the hotel's **name**, the new data must be unique in combination."
  *      requestBody:
  *          required: true
  *          content:
@@ -127,8 +127,8 @@ hotelRouter.patch(
   '/:code',
   [
     Logger,
-    validateCodeNotFalsy,
-    validateNameNotFalsy,
+    validateCodeFromParamsNotFalsy,
+    validateNameFromBodyNotFalsy,
     validateHotelByCodeDataBase
   ],
   patchHotel
@@ -145,7 +145,7 @@ hotelRouter.patch(
  *      operationId: deleteHotel
  *      parameters:
  *        - $ref: "#/components/parameters/code"
- *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, deleting a record means deleting its relationship with books in the **booksauthors** table, and updating the author table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/deletedHotel"
@@ -158,7 +158,7 @@ hotelRouter.patch(
  */
 hotelRouter.delete(
   '/:code',
-  [Logger, validateCodeNotFalsy, validateHotelByCodeDataBase],
+  [Logger, validateCodeFromParamsNotFalsy, validateHotelByCodeDataBase],
   deleteHotel
 );
 

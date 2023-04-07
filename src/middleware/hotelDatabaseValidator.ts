@@ -23,7 +23,7 @@ export const validateHotelByCodeDataBase = async (
     if (hotel?.id) {
       const error: ErrorOperation = {
         status: httpStatus?.BAD_REQUEST,
-        message: `a hotel exists with the name '${hotel?.name}' & code '${hotel?.code}'`
+        message: `a hotel exists with the code '${hotel?.code}' & name '${hotel?.name}'`
       };
       return res.status(httpStatus?.BAD_REQUEST).json({ error });
     }

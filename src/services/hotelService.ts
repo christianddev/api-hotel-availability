@@ -88,14 +88,14 @@ const createHotelFromModel = async ({
 };
 
 export const createHotel = async (
-  rawAuthor: HotelRequest
+  rawHotel: HotelRequest
 ): Promise<any | undefined> => {
   try {
     const {
       dataValues: { id, name, code }
     }: { dataValues: HotelRequest } = await createHotelFromModel({
-      name: rawAuthor?.name,
-      code: rawAuthor?.code
+      code: rawHotel?.code,
+      name: rawHotel?.name
     });
 
     return {
@@ -163,8 +163,7 @@ const destroyHotelFromModel = async (
 
 export const removeHotel = async (code: string): Promise<any | undefined> => {
   try {
-    // destroy al rooms, rates & inventory?
-    // const deletedBooksAuthors = await destroyBooksAuthorsByAuthorId(id);
+    // TODO: destroy al rooms, rates & inventory tables?
 
     if (TEMPORARY_DELETE) {
       const deletedHotel = await updateHotelFromModel({
