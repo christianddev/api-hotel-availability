@@ -8,9 +8,10 @@ export const Logger = (
 ): void => {
   if (SERVER_LOGGING) {
     const method = `${req.method} ${req?.originalUrl}`;
+    const body = `\n\tbody: ${JSON.stringify(req?.body)}`;
     const params = `\n\tparams: ${JSON.stringify(req?.params)}`;
     const query = `\n\tquery: ${JSON.stringify(req?.query)}`;
-    console.log(`${method}${params}${query}`);
+    console.log(`${method}${body}${params}${query}`);
   }
   next();
 };

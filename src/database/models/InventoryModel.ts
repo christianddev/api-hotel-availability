@@ -35,7 +35,7 @@ export const InventoryModel = sequelize.define(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
     },
-    rateId: {
+    rateCode: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {

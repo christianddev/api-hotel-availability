@@ -49,8 +49,8 @@ export const finOneHotelByCode = async (
   }
 };
 
-export const findOneHotelByNameAndCode = async (
-  { name = '', code = '' }: HotelRequest,
+export const findOneHotelByCode = async (
+  { code = '' }: HotelRequest,
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
   excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
 ): Promise<Hotel | undefined> => {
@@ -67,7 +67,7 @@ export const findOneHotelByNameAndCode = async (
 
     return hotel as unknown as Hotel;
   } catch (error) {
-    throwError('findOneHotelByNameAndCode', error);
+    throwError('findOneHotelByCode', error);
   }
 };
 

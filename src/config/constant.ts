@@ -56,9 +56,9 @@ export const EXCLUDE_TEMPORARY_DELETED =
 export const HOTEL_MODEL_NAME: string =
   process.env.DATABASE_HOTELS_MODEL_NAME ?? 'hotels';
 export const HOTEL_ID_FIELD_NAME: string =
-  process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'id';
+  process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'code';
 export const HOTEL_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_id';
+  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_code';
 export const HOTEL_MODEL_CODE_LENGTH: number =
   Number(process.env.DATABASE_HOTEL_MODEL_CODE_LENGTH) ?? 150;
 export const HOTEL_MODEL_NAME_LENGTH: number =
@@ -70,7 +70,7 @@ export const ROOM_MODEL_NAME: string =
 export const ROOM_ID_FIELD_NAME: string =
   process.env.DATABASE_ROOM_ID_FIELD_NAME ?? 'id';
 export const ROOM_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_ROOM_FK_ID_FIELD_NAME ?? 'room_id';
+  process.env.DATABASE_ROOM_FK_ID_FIELD_NAME ?? 'room_code';
 export const ROOM_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_ROOM_MODEL_NAME_LENGTH) ?? 150;
 export const ROOM_MODEL_CODE_LENGTH: number =
@@ -82,7 +82,7 @@ export const RATE_MODEL_NAME: string =
 export const RATE_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_ID_FIELD_NAME ?? 'id';
 export const RATE_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'room_id';
+  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_code';
 export const RATE_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_RATE_MODEL_NAME_LENGTH) ?? 150;
 export const RATE_MODEL_CODE_LENGTH: number =

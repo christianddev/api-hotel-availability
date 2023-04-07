@@ -44,7 +44,7 @@ export const RateModel = sequelize.define(
       field: RATE_CHECK_OUT_FIELD_NAME,
       defaultValue: DataTypes.NOW
     },
-    roomId: {
+    roomCode: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {

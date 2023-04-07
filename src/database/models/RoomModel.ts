@@ -31,7 +31,7 @@ export const RoomModel = sequelize.define(
       type: DataTypes.STRING(ROOM_MODEL_NAME_LENGTH),
       allowNull: false
     },
-    hotelId: {
+    hotelCode: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {

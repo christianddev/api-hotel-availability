@@ -9,9 +9,10 @@ import {
   postHotel
 } from '../../controllers';
 import {
+  validateHotelByCodeNotExistsIntoDataBase,
   Logger,
-  validateHotelByCodeDataBase,
   validateCodeFromParamsNotFalsy,
+  validateHotelByCodeExistsIntoDataBase,
   validateNameFromBodyNotFalsy
 } from '../../middleware';
 
@@ -89,7 +90,7 @@ hotelRouter.get('/:code', [Logger, validateCodeFromParamsNotFalsy], getHotel);
  */
 hotelRouter.post(
   '/',
-  [Logger, validateNameFromBodyNotFalsy, validateHotelByCodeDataBase],
+  [Logger, validateNameFromBodyNotFalsy, validateHotelByCodeExistsIntoDataBase],
   postHotel
 );
 
@@ -129,7 +130,7 @@ hotelRouter.patch(
     Logger,
     validateCodeFromParamsNotFalsy,
     validateNameFromBodyNotFalsy,
-    validateHotelByCodeDataBase
+    validateHotelByCodeNotExistsIntoDataBase
   ],
   patchHotel
 );
@@ -158,7 +159,11 @@ hotelRouter.patch(
  */
 hotelRouter.delete(
   '/:code',
-  [Logger, validateCodeFromParamsNotFalsy, validateHotelByCodeDataBase],
+  [
+    Logger,
+    validateCodeFromParamsNotFalsy,
+    validateHotelByCodeNotExistsIntoDataBase
+  ],
   deleteHotel
 );
 
