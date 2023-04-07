@@ -23,35 +23,18 @@ export const TEMPORARY_DELETE =
 export const EXCLUDE_TEMPORARY_DELETED =
   process.env.DATABASE_DEFAULT_EXCLUDE_TEMPORARY_DELETED === 'true';
 
-export const DATABASE_NAME: string =
-  process.env.NODE_ENV !== 'test'
-    ? process.env.DATABASE_NAME ?? ''
-    : process.env.DATABASE_TEST_NAME ?? '';
+export const DATABASE_NAME: string = process.env.DATABASE_NAME ?? '';
 
-export const DATABASE_USER: string =
-  process.env.NODE_ENV !== 'test'
-    ? process.env.DATABASE_USER ?? ''
-    : process.env.DATABASE_TEST_USER ?? '';
+export const DATABASE_USER: string = process.env.DATABASE_USER ?? '';
 
-export const DATABASE_PASSWORD: string =
-  process.env.NODE_ENV !== 'test'
-    ? process.env.DATABASE_PASSWORD ?? ''
-    : process.env.DATABASE_TEST_PASSWORD ?? '';
+export const DATABASE_PASSWORD: string = process.env.DATABASE_PASSWORD ?? '';
 
-export const DATABASE_HOST: string =
-  process.env.NODE_ENV !== 'test'
-    ? process.env.DATABASE_HOST ?? ''
-    : process.env.DATABASE_TEST_HOST ?? '';
+export const DATABASE_HOST: string = process.env.DATABASE_HOST ?? '';
 
-export const DATABASE_PORT: string =
-  process.env.NODE_ENV !== 'test'
-    ? process.env.DATABASE_PORT ?? ''
-    : process.env.DATABASE_TEST_PORT ?? '';
+export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
 
 export const DATABASE_LOGGING: boolean =
-  process.env.NODE_ENV === 'test'
-    ? process.env.DATABASE_TEST_LOGGING === 'true'
-    : process.env.DATABASE_LOGGING === 'true';
+  process.env.DATABASE_LOGGING === 'true';
 
 export const DATABASE_DIALECT: Dialect =
   (process.env.DATABASE_DIALECT as Dialect) ?? 'mysql';
