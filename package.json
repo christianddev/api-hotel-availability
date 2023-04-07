@@ -13,7 +13,7 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ./**/*.ts"
   },
-  "author": "",
+  "author": "christianddev",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
