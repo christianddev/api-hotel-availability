@@ -5,6 +5,7 @@ import {
   CREATED_AT_FIELD_NAME,
   HOTEL_FK_ID_FIELD_NAME,
   HOTEL_ID_FIELD_NAME,
+  HOTEL_MODEL_CODE_LENGTH,
   HOTEL_MODEL_NAME,
   IS_DELETED_FIELD_NAME,
   ON_DELETE_ATTRIBUTE,
@@ -32,7 +33,7 @@ export const RoomModel = sequelize.define(
       allowNull: false
     },
     hotelCode: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.STRING(HOTEL_MODEL_CODE_LENGTH),
       allowNull: false,
       references: {
         model: HOTEL_MODEL_NAME,
