@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import type { NextFunction, Request, Response } from 'express';
 
-import type { ErrorOperation } from '../types/api';
+import type { ErrorOperation } from '../types';
 
 const validateFieldOfParamsNotFalsy = (
   field: string,

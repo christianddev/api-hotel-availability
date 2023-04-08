@@ -6,7 +6,7 @@ import {
 } from '../config';
 import { HotelModel } from '../database/models';
 import { throwError } from './utils';
-import type { Hotel, HotelRequest } from '../types/hotel';
+import type { Hotel, HotelRequest } from '../types';
 
 export const findAllHotels = async (
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,

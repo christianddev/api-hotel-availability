@@ -3,8 +3,7 @@ import type { NextFunction, Request, Response } from 'express';
 
 import { defaultErrorResponse } from '../controllers';
 import { findOneHotelByCode } from '../services';
-import type { HotelRequest } from '../types/hotel';
-import type { ErrorOperation } from '../types/api';
+import type { HotelRequest, ErrorOperation } from '../types';
 
 export const validateHotelByCodeExistsIntoDataBase = async (
   req: Request,

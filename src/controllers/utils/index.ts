@@ -1,7 +1,7 @@
 import { type Response } from 'express';
 import httpStatus from 'http-status';
 
-import type { ErrorOperation } from '../../types/api';
+import type { ErrorOperation } from '../../types';
 
 export const defaultErrorResponse = (
   catchError: unknown,

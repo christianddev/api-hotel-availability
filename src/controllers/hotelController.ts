@@ -9,8 +9,7 @@ import {
   updateHotel
 } from '../services';
 import { defaultErrorResponse } from './utils';
-import type { ErrorOperation } from '../types/api';
-import type { Hotel, HotelRequest } from '../types/hotel';
+import type { Hotel, HotelRequest, ErrorOperation } from '../types';
 
 export const getHotels = async (
   _req: Request,
