@@ -30,7 +30,7 @@ export const getHotel = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const code = req?.params?.code;
+    const code = req?.params?.hotelCode;
     const hotel: Hotel = (await finOneHotelByCode(code)) as Hotel;
 
     if (hotel?.code) {
@@ -69,7 +69,7 @@ export const patchHotel = async (
 ): Promise<Response> => {
   const {
     body: { name },
-    params: { code }
+    params: { hotelCode: code }
   } = req;
 
   try {
@@ -86,7 +86,7 @@ export const deleteHotel = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const response = await removeHotel(req?.params?.code);
+    const response = await removeHotel(req?.params?.hotelCode);
 
     return res.status(httpStatus?.OK).json(response);
   } catch (err) {

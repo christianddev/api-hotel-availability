@@ -11,7 +11,7 @@ import {
 import {
   validateHotelByCodeNotExistsIntoDataBase,
   Logger,
-  validateCodeFromParamsNotFalsy,
+  validateHotelCodeFromParamsNotFalsy,
   validateHotelByCodeExistsIntoDataBase,
   validateNameFromBodyNotFalsy
 } from '../../middleware';
@@ -61,7 +61,11 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get('/:code', [Logger, validateCodeFromParamsNotFalsy], getHotel);
+hotelRouter.get(
+  '/:hotelCode',
+  [Logger, validateHotelCodeFromParamsNotFalsy],
+  getHotel
+);
 
 /**
  * Create Hotel
@@ -126,10 +130,10 @@ hotelRouter.post(
  *       - jwtAuth: []
  */
 hotelRouter.patch(
-  '/:code',
+  '/:hotelCode',
   [
     Logger,
-    validateCodeFromParamsNotFalsy,
+    validateHotelCodeFromParamsNotFalsy,
     validateNameFromBodyNotFalsy,
     validateHotelByCodeNotExistsIntoDataBase
   ],
@@ -159,10 +163,10 @@ hotelRouter.patch(
  *       - jwtAuth: []
  */
 hotelRouter.delete(
-  '/:code',
+  '/:hotelCode',
   [
     Logger,
-    validateCodeFromParamsNotFalsy,
+    validateHotelCodeFromParamsNotFalsy,
     validateHotelByCodeNotExistsIntoDataBase
   ],
   deleteHotel

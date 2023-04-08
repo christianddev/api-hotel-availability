@@ -34,7 +34,7 @@ export const validateHotelByCodeNotExistsIntoDataBase = async (
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
-    const code: string = req?.params?.code;
+    const code: string = req?.params?.hotelCode;
     const hotel = await findOneHotelByCode({ code }, true);
 
     if (!hotel) {
