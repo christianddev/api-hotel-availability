@@ -77,6 +77,8 @@ export const ROOM_ID_FIELD_NAME: string =
   process.env.DATABASE_ROOM_ID_FIELD_NAME ?? 'id';
 export const ROOM_FK_ID_FIELD_NAME: string =
   process.env.DATABASE_ROOM_FK_ID_FIELD_NAME ?? 'room_id';
+export const ROOM_FK_ID_FIELD_NAME_SEQUELIZE: string =
+  process.env.DATABASE_ROOM_FK_ID_FIELD_NAME_SEQUELIZE ?? 'roomId';
 export const ROOM_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_ROOM_MODEL_NAME_LENGTH) ?? 150;
 export const ROOM_MODEL_CODE_LENGTH: number =

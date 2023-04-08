@@ -32,11 +32,11 @@ export const getHotel = async (
     const code = req?.params?.hotelCode;
     const hotel = (await findOneHotelByCode(code)) as Hotel;
 
-    if (hotel?.code) {
-      return res.status(httpStatus?.OK).json({ data: { hotel } });
+    if (!hotel) {
+      return resourceNotFound(`hotel with code '${code}' not found`, res);
     }
 
-    return resourceNotFound(`hotel with code '${code}' not found`, res);
+    return res.status(httpStatus?.OK).json({ data: { hotel } });
   } catch (err) {
     return defaultErrorResponse(err, res);
   }
