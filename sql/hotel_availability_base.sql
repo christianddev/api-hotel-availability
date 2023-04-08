@@ -26,34 +26,14 @@ CREATE TABLE rooms (
 
 CREATE UNIQUE INDEX rooms_code_hotel_id_uindex ON rooms (code, hotel_id);
 
-INSERT INTO hotels (code, name) VALUES ('H001', 'Hotel Casa Blanca');
-INSERT INTO hotels (code, name) VALUES ('H002', 'Hotel El Dorado');
-INSERT INTO hotels (code, name) VALUES ('H003', 'Hotel Las Palmas');
-INSERT INTO hotels (code, name) VALUES ('H004', 'Hotel Playa Azul');
-INSERT INTO hotels (code, name) VALUES ('H005', 'Hotel San Rafael');
-INSERT INTO hotels (code, name) VALUES ('H006', 'Hotel Santa Maria');
-INSERT INTO hotels (code, name) VALUES ('H007', 'Hotel Sol y Mar');
-INSERT INTO hotels (code, name) VALUES ('H008', 'Hotel Villa Blanca');
-INSERT INTO hotels (code, name) VALUES ('H009', 'Hotel Vista Hermosa');
-INSERT INTO hotels (code, name) VALUES ('H010', 'Hotel Los Cocos');
-
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R001', 'Habitación Deluxe', 1);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R002', 'Habitación Estándar', 1);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R003', 'Habitación Ejecutiva', 2);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R004', 'Habitación Premium', 2);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R005', 'Habitación Junior Suite', 3);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R006', 'Habitación Suite Presidencial', 3);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R007', 'Habitación Superior', 4);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R008', 'Habitación Clásica', 5);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R009', 'Habitación Standard Plus', 6);
-INSERT INTO rooms (code, name, hotel_id) VALUES ('R010', 'Habitación Grand Suite', 7);
-
 CREATE TABLE rates (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   code VARCHAR(150) NOT NULL,
   name VARCHAR(150) NOT NULL,
   room_id INT UNSIGNED NOT NULL,
   is_deleted tinyint(1) NOT NULL DEFAULT 0,
+  check_in DATETIME NOT NULL,
+  check_out DATETIME NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT rates_room_id_fk FOREIGN KEY (room_id) REFERENCES rooms (id) ON DELETE CASCADE
@@ -74,3 +54,61 @@ CREATE TABLE inventories (
 );
 
 CREATE UNIQUE INDEX inventories_date_rate_id_uindex ON inventories (date, rate_id);
+
+INSERT INTO hotels (code, name) VALUES
+  ('AAA123', 'Hotel ABC'),
+  ('BBB456', 'Hotel XYZ'),
+  ('CCC789', 'Grand Hotel'),
+  ('DDD321', 'Beach Resort'),
+  ('EEE654', 'Riverside Lodge'),
+  ('FFF987', 'Mountain View'),
+  ('GGG012', 'The Plaza'),
+  ('HHH345', 'Luxury Suites'),
+  ('III678', 'Historic Inn'),
+  ('JJJ910', 'City Center Hotel');
+
+  INSERT INTO rooms (code, name, hotel_id) VALUES
+  ('RM101', 'Standard Room', 1),
+  ('RM102', 'Deluxe Room', 1),
+  ('RM103', 'Suite', 1),
+  ('RM201', 'Single Room', 2),
+  ('RM202', 'Double Room', 2),
+  ('RM203', 'Executive Suite', 2),
+  ('RM301', 'Ocean View Room', 3),
+  ('RM302', 'Beach Front Villa', 3),
+  ('RM303', 'Luxury Suite', 3),
+  ('RM401', 'River View Room', 4),
+  ('RM402', 'Riverside Cottage', 4),
+  ('RM403', 'Waterfront Suite', 4),
+  ('RM501', 'Mountain View Room', 5),
+  ('RM502', 'Cabin', 5),
+  ('RM503', 'Treehouse', 5),
+  ('RM601', 'Standard Room', 6),
+  ('RM602', 'Deluxe Room', 6),
+  ('RM603', 'Suite', 6),
+  ('RM701', 'Junior Suite', 7),
+  ('RM702', 'Executive Suite', 7),
+  ('RM703', 'Presidential Suite', 7),
+  ('RM801', 'Luxury Suite', 8),
+  ('RM802', 'Premium Suite', 8),
+  ('RM803', 'Royal Suite', 8),
+  ('RM901', 'Historic Room', 9),
+  ('RM902', 'Antique Suite', 9),
+  ('RM903', 'Vintage Room', 9),
+  ('RM1001', 'Standard Room', 10),
+  ('RM1002', 'Deluxe Room', 10),
+  ('RM1003', 'Suite', 10);
+
+
+INSERT INTO rates (code, name, room_id, check_in, check_out)
+VALUES
+  ('R001', 'Standard Rate', 1, '2023-04-08 14:00:00', '2023-04-09 12:00:00'),
+  ('R002', 'Premium Rate', 1, '2023-04-10 14:00:00', '2023-04-11 12:00:00'),
+  ('R003', 'Business Rate', 2, '2023-04-12 14:00:00', '2023-04-13 12:00:00'),
+  ('R004', 'Family Rate', 2, '2023-04-14 14:00:00', '2023-04-15 12:00:00'),
+  ('R005', 'Holiday Rate', 3, '2023-04-16 14:00:00', '2023-04-17 12:00:00'),
+  ('R006', 'Weekend Rate', 3, '2023-04-18 14:00:00', '2023-04-19 12:00:00'),
+  ('R007', 'Extended Stay Rate', 4, '2023-04-20 14:00:00', '2023-04-21 12:00:00'),
+  ('R008', 'Last Minute Rate', 4, '2023-04-22 14:00:00', '2023-04-23 12:00:00'),
+  ('R009', 'Corporate Rate', 5, '2023-04-24 14:00:00', '2023-04-25 12:00:00'),
+  ('R010', 'Senior Rate', 5, '2023-04-26 14:00:00', '2023-04-27 12:00:00');

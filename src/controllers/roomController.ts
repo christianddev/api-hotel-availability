@@ -56,10 +56,10 @@ export const getRoom = async (
       hotelId: hotel?.id
     })) as Room;
 
-    if (room?.code) {
-      return res.status(httpStatus?.OK).json({ data: { room } });
+    if (!room) {
+      return resourceNotFound(`room with code '${roomCode}' not found`, res);
     }
-    return resourceNotFound(`room with code '${roomCode}' not found`, res);
+    return res.status(httpStatus?.OK).json({ data: { room } });
   } catch (err) {
     return defaultErrorResponse(err, res);
   }
@@ -128,8 +128,7 @@ export const deleteRoom = async (
     if (!hotel) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
-    const roomCode = req.params.roomCode;
-    const response = await removeRoom(roomCode, hotel?.id);
+    const response = await removeRoom(req.params.roomCode, hotel?.id);
     return res.status(httpStatus?.OK).json(response);
   } catch (err) {
     return defaultErrorResponse(err, res);
