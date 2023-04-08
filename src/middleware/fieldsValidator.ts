@@ -1,34 +1,51 @@
-import httpStatus from 'http-status';
 import type { NextFunction, Request, Response } from 'express';
 
-import type { ErrorOperation } from '../types/api';
+import { badRequest } from '../common';
 
-export const validateCodeFromParamsNotFalsy = (
+const validateRequiredParam = (
+  field: string,
   req: Request,
   res: Response,
   next: NextFunction
 ): Response | undefined => {
-  if (!req?.params?.code) {
-    const error: ErrorOperation = {
-      status: httpStatus?.BAD_REQUEST,
-      message: "check 'code' field"
-    };
-    return res.status(httpStatus?.BAD_REQUEST).json({ error });
+  if (!field || !req?.params?.[field]) {
+    return badRequest(`check ${field} field`, res);
   }
   next();
 };
 
-export const validateNameFromBodyNotFalsy = (
+const validateRequiredFieldOfBody = (
+  field: string,
   req: Request,
   res: Response,
   next: NextFunction
 ): Response | undefined => {
-  if (!req?.body?.name) {
-    const error: ErrorOperation = {
-      status: httpStatus?.BAD_REQUEST,
-      message: "check 'name' field"
-    };
-    return res.status(httpStatus?.BAD_REQUEST).json({ error });
+  if (!field || !req?.body?.[field]) {
+    return badRequest(`check ${field} field`, res);
   }
   next();
 };
+
+export const validateRoomCodeParam = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateRequiredParam('roomCode', req, res, next);
+
+export const validateHotelCodeParam = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateRequiredParam('hotelCode', req, res, next);
+
+export const validateNameFieldOfBody = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateRequiredFieldOfBody('name', req, res, next);
+
+export const validateCodeFieldOfBody = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateRequiredFieldOfBody('code', req, res, next);

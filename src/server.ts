@@ -29,10 +29,10 @@ function middleware(app: Application): void {
 }
 
 function routes(app: Application): void {
-  console.log({ HOTEL_PATH });
-  app.use(HOTEL_PATH, hotelRoutes);
   console.log({ DOCUMENTATION_PATH });
   app.use(DOCUMENTATION_PATH, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
+  console.log({ HOTEL_PATH });
+  app.use(HOTEL_PATH, hotelRoutes);
 }
 
 function listen(app: Application, port: string): void {
