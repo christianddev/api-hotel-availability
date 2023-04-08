@@ -32,6 +32,8 @@ CREATE TABLE rates (
   name VARCHAR(150) NOT NULL,
   room_id INT UNSIGNED NOT NULL,
   is_deleted tinyint(1) NOT NULL DEFAULT 0,
+  check_in DATETIME NOT NULL,
+  check_out DATETIME NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT rates_room_id_fk FOREIGN KEY (room_id) REFERENCES rooms (id) ON DELETE CASCADE
@@ -98,21 +100,15 @@ INSERT INTO hotels (code, name) VALUES
   ('RM1003', 'Suite', 10);
 
 
-INSERT INTO rates (code, name, room_id) VALUES
-  ('R001', 'Standard Rate', 1),
-  ('R002', 'Premium Rate', 1),
-  ('R003', 'Business Rate', 1),
-  ('R004', 'Family Rate', 1),
-  ('R005', 'Holiday Rate', 1),
-  ('R006', 'Weekend Rate', 1),
-  ('R007', 'Extended Stay Rate', 1),
-  ('R008', 'Last Minute Rate', 1),
-  ('R009', 'Corporate Rate', 2),
-  ('R010', 'Senior Rate', 2),
-  ('R011', 'AAA Rate', 2),
-  ('R012', 'Government Rate', 3),
-  ('R013', 'Military Rate', 3),
-  ('R014', 'Student Rate', 3),
-  ('R015', 'Group Rate', 3),
-  ('R016', 'Early Bird Rate', 4),
-  ('R017', 'Non-Ref', 5);
+INSERT INTO rates (code, name, room_id, check_in, check_out)
+VALUES
+  ('R001', 'Standard Rate', 1, '2023-04-08 14:00:00', '2023-04-09 12:00:00'),
+  ('R002', 'Premium Rate', 1, '2023-04-10 14:00:00', '2023-04-11 12:00:00'),
+  ('R003', 'Business Rate', 2, '2023-04-12 14:00:00', '2023-04-13 12:00:00'),
+  ('R004', 'Family Rate', 2, '2023-04-14 14:00:00', '2023-04-15 12:00:00'),
+  ('R005', 'Holiday Rate', 3, '2023-04-16 14:00:00', '2023-04-17 12:00:00'),
+  ('R006', 'Weekend Rate', 3, '2023-04-18 14:00:00', '2023-04-19 12:00:00'),
+  ('R007', 'Extended Stay Rate', 4, '2023-04-20 14:00:00', '2023-04-21 12:00:00'),
+  ('R008', 'Last Minute Rate', 4, '2023-04-22 14:00:00', '2023-04-23 12:00:00'),
+  ('R009', 'Corporate Rate', 5, '2023-04-24 14:00:00', '2023-04-25 12:00:00'),
+  ('R010', 'Senior Rate', 5, '2023-04-26 14:00:00', '2023-04-27 12:00:00');
