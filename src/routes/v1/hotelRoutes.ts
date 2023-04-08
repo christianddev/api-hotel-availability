@@ -9,11 +9,12 @@ import {
   postHotel
 } from '../../controllers';
 import {
-  validateHotelByCodeNotExistsIntoDataBase,
+  validateIfHotelByCodeFromParamsExistsIntoDataBase,
   Logger,
   validateHotelCodeFromParamsNotFalsy,
-  validateHotelByCodeExistsIntoDataBase,
-  validateNameFromBodyNotFalsy
+  validateIfHotelByCodeExistsIntoDataBase,
+  validateNameFromBodyNotFalsy,
+  validateCodeFromBodyNotFalsy
 } from '../../middleware';
 import roomRoutes from './roomRoutes';
 
@@ -95,7 +96,12 @@ hotelRouter.get(
  */
 hotelRouter.post(
   '/',
-  [Logger, validateNameFromBodyNotFalsy, validateHotelByCodeExistsIntoDataBase],
+  [
+    Logger,
+    validateCodeFromBodyNotFalsy,
+    validateNameFromBodyNotFalsy,
+    validateIfHotelByCodeExistsIntoDataBase
+  ],
   postHotel
 );
 
@@ -135,7 +141,7 @@ hotelRouter.patch(
     Logger,
     validateHotelCodeFromParamsNotFalsy,
     validateNameFromBodyNotFalsy,
-    validateHotelByCodeNotExistsIntoDataBase
+    validateIfHotelByCodeFromParamsExistsIntoDataBase
   ],
   patchHotel
 );
@@ -167,10 +173,11 @@ hotelRouter.delete(
   [
     Logger,
     validateHotelCodeFromParamsNotFalsy,
-    validateHotelByCodeNotExistsIntoDataBase
+    validateIfHotelByCodeFromParamsExistsIntoDataBase
   ],
   deleteHotel
 );
 
 hotelRouter.use(`/:hotelCode/rooms`, roomRoutes);
+
 export default hotelRouter;

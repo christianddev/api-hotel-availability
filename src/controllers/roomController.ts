@@ -1,9 +1,15 @@
 import { type Request, type Response } from 'express';
 import httpStatus from 'http-status';
 
-import { defaultErrorResponse } from './utils';
-import { finOneHotelByCode, findAllRoomsByHotelId } from '../services';
-import type { ErrorOperation } from '../types/api';
+import { defaultErrorResponse, resourceNotFound } from '../common';
+import {
+  createRoom,
+  findAllRoomsByHotelId,
+  findOneHotelByCode,
+  findOneRoomByCodeAndHotelId,
+  finOneHotelByCode
+} from '../services';
+import type { ErrorOperation, Room, RoomRequest } from '../types';
 
 export const getRooms = async (
   req: Request,
@@ -29,43 +35,57 @@ export const getRooms = async (
   }
 };
 
-// export const getHotel = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   try {
-//     const code = req?.params?.code;
-//     const hotel: Hotel = (await finOneHotelByCode(code)) as Hotel;
+export const getRoom = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const hotelCode = req?.params?.hotelCode;
+    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
 
-//     if (hotel?.code) {
-//       return res.status(httpStatus?.OK).json({ data: { hotel } });
-//     }
-//     const error: ErrorOperation = {
-//       status: httpStatus?.NOT_FOUND,
-//       message: `hotel with code '${code}' not found`
-//     };
+    if (!hotel?.id) {
+      return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
+    }
+    const roomCode = req?.params?.roomCode;
 
-//     return res.status(httpStatus?.NOT_FOUND).json({ error });
-//   } catch (err) {
-//     return defaultErrorResponse(err, res);
-//   }
-// };
+    const room: Room = (await findOneRoomByCodeAndHotelId({
+      roomCode,
+      hotelId: hotel?.id
+    })) as Room;
 
-// export const postHotel = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   try {
-//     const rawHotel: HotelRequest = req?.body;
-//     const newHotel = await createHotel(rawHotel);
+    if (room?.code) {
+      return res.status(httpStatus?.OK).json({ data: { room } });
+    }
+    return resourceNotFound(`room with code '${roomCode}' not found`, res);
+  } catch (err) {
+    return defaultErrorResponse(err, res);
+  }
+};
 
-//     return res
-//       .status(httpStatus?.CREATED)
-//       .json({ data: { hotel: newHotel?.data } });
-//   } catch (err) {
-//     return defaultErrorResponse(err, res);
-//   }
-// };
+export const postRoom = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    console.log('postRoom');
+    const hotelCode = req?.params?.hotelCode;
+    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
+
+    if (!hotel?.code) {
+      return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
+    }
+    const rawRoom: RoomRequest = req?.body;
+    rawRoom.hotelId = hotel.id;
+    console.log('rawRoom', rawRoom);
+    const newRoom = await createRoom(rawRoom);
+
+    return res
+      .status(httpStatus?.CREATED)
+      .json({ data: { room: newRoom?.data } });
+  } catch (err) {
+    return defaultErrorResponse(err, res);
+  }
+};
 
 // export const patchHotel = async (
 //   req: Request,

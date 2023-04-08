@@ -9,7 +9,18 @@ export interface Room {
 
 export interface RoomRequest {
   id?: string;
+  roomCode?: string;
+  code?: string;
+  name?: string;
+  hotelId?: number;
+  hotelCode?: string;
+  isDeleted?: boolean;
+}
+
+export interface RoomDatabaseResponse {
+  id?: string;
   code: string;
   name?: string;
+  hotelId?: number;
   isDeleted?: boolean;
 }

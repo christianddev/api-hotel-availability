@@ -6,7 +6,7 @@ import {
 } from '../config';
 import { RoomModel } from '../database/models';
 import { throwError } from './utils';
-import type { Room } from '../types/room';
+import type { Room, RoomDatabaseResponse, RoomRequest } from '../types';
 
 export const findAllRoomsByHotelId = async (
   hotelId: number,
@@ -28,5 +28,68 @@ export const findAllRoomsByHotelId = async (
     return rooms as unknown as Room[];
   } catch (error) {
     throwError('findAllRoomsByHotelId:', error);
+  }
+};
+
+export const findOneRoomByCodeAndHotelId = async (
+  { roomCode: code, hotelId }: RoomRequest,
+  excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
+  excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
+): Promise<Room | undefined> => {
+  try {
+    const room = await RoomModel.findOne({
+      where: {
+        code,
+        ...(hotelId ? { hotelId } : ''),
+        ...(excludeTemporaryDeleted && { isDeleted: false })
+      },
+      attributes: {
+        exclude: excludeORMFields
+          ? [...SEQUELIZE_FIELDS, HOTEL_FK_ID_FIELD_NAME_SEQUELIZE]
+          : ['']
+      }
+    });
+
+    return room as unknown as Room;
+  } catch (error) {
+    throwError('findOneRoomByCodeAndHotelId', error);
+  }
+};
+
+const createRoomFromModel = async ({
+  name,
+  roomCode,
+  hotelId
+}: RoomRequest): Promise<any | undefined> => {
+  try {
+    const room = await RoomModel.create({
+      name,
+      code: roomCode,
+      hotelId
+    });
+
+    return room;
+  } catch (error) {
+    throwError('createRoomFromModel', error);
+  }
+};
+
+export const createRoom = async (
+  rawRoom: RoomRequest
+): Promise<any | undefined> => {
+  try {
+    const {
+      dataValues: { id, name, code }
+    }: { dataValues: RoomDatabaseResponse } = await createRoomFromModel({
+      roomCode: rawRoom?.code,
+      name: rawRoom?.name,
+      hotelId: rawRoom?.hotelId
+    });
+
+    return {
+      data: { id, name, code }
+    };
+  } catch (error) {
+    throwError('createRoom', error);
   }
 };
