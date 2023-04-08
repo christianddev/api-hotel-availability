@@ -27,28 +27,6 @@ export const findAllHotels = async (
   }
 };
 
-export const finOneHotelByCode = async (
-  code: string,
-  excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
-  excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
-): Promise<Hotel | undefined> => {
-  try {
-    const hotel = await HotelModel.findOne({
-      where: {
-        code,
-        ...(excludeTemporaryDeleted && { isDeleted: false })
-      },
-      attributes: {
-        exclude: excludeORMFields ? SEQUELIZE_FIELDS : ['']
-      }
-    });
-
-    return hotel as unknown as Hotel;
-  } catch (error) {
-    throwError('finOneHotelByCode', error);
-  }
-};
-
 export const findOneHotelByCode = async (
   { code }: HotelRequest,
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,

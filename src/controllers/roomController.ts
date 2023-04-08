@@ -6,8 +6,7 @@ import {
   createRoom,
   findAllRoomsByHotelId,
   findOneHotelByCode,
-  findOneRoomByCodeAndHotelId,
-  finOneHotelByCode
+  findOneRoomByCodeAndHotelId
 } from '../services';
 import type { ErrorOperation, Room, RoomRequest } from '../types';
 
@@ -16,13 +15,13 @@ export const getRooms = async (
   res: Response<unknown, Record<string, unknown>>
 ): Promise<Response> => {
   try {
-    const hotelCode = req?.params?.hotelCode;
+    const code = req?.params?.hotelCode;
 
-    const hotel = await finOneHotelByCode(hotelCode);
+    const hotel = await findOneHotelByCode({ code });
     if (!hotel) {
       const error: ErrorOperation = {
         status: httpStatus?.NOT_FOUND,
-        message: `hotel with code '${hotelCode}' not found`
+        message: `hotel with code '${code}' not found`
       };
 
       return res.status(httpStatus?.NOT_FOUND).json({ error });
