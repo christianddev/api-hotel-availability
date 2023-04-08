@@ -1,8 +1,15 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { badRequest, defaultErrorResponse, resourceNotFound } from '../common';
-import { findOneHotelByCode, findOneRoomByCodeAndHotelId } from '../services';
-import type { ValidationByCodeProps } from '../types';
+import {
+  badRequest,
+  defaultErrorResponse,
+  resourceNotFound
+} from '../../common';
+import {
+  findOneHotelByCode,
+  findOneRoomByCodeAndHotelId
+} from '../../services';
+import type { ValidationByCodeProps } from '../../types';
 
 const validateRoomByCode = async ({
   isUpdateOperation,
@@ -14,11 +21,12 @@ const validateRoomByCode = async ({
   try {
     const hotelCode: string = req?.params.hotelCode;
 
-    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
+    const hotel = await findOneHotelByCode(hotelCode, false, false);
 
     if (!hotel?.code) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
+
     const roomCode = req?.body?.roomCode
       ? String(req?.body?.roomCode)
       : req?.params?.roomCode
@@ -29,7 +37,8 @@ const validateRoomByCode = async ({
 
     const room = await findOneRoomByCodeAndHotelId(
       { roomCode, ...(findWithFKField ? { hotelId: hotel?.id } : '') },
-      false
+      false,
+      !findWithFKField
     );
 
     if (isUpdateOperation && !room?.code) {
@@ -50,7 +59,13 @@ export const validateIfRoomByCodeExistsIntoDataBase = async (
   res: Response,
   next: NextFunction
 ): Promise<Response | undefined> =>
-  await validateRoomByCode({ isUpdateOperation: true, req, res, next });
+  await validateRoomByCode({
+    isUpdateOperation: true,
+    findWithFKField: true,
+    req,
+    res,
+    next
+  });
 
 export const validateIfRoomByCodeNotExistsIntoDataBase = async (
   req: Request,

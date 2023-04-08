@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 
 import { badRequest } from '../common';
 
-const validateFieldOfParamsNotFalsy = (
+const validateRequiredParam = (
   field: string,
   req: Request,
   res: Response,
@@ -14,7 +14,7 @@ const validateFieldOfParamsNotFalsy = (
   next();
 };
 
-const validateFieldOfBodyNotFalsy = (
+const validateRequiredFieldOfBody = (
   field: string,
   req: Request,
   res: Response,
@@ -26,28 +26,26 @@ const validateFieldOfBodyNotFalsy = (
   next();
 };
 
-export const validateRoomCodeFromParamsNotFalsy = (
+export const validateRoomCodeParam = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response | undefined =>
-  validateFieldOfParamsNotFalsy('roomCode', req, res, next);
+): Response | undefined => validateRequiredParam('roomCode', req, res, next);
 
-export const validateHotelCodeFromParamsNotFalsy = (
+export const validateHotelCodeParam = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response | undefined =>
-  validateFieldOfParamsNotFalsy('hotelCode', req, res, next);
+): Response | undefined => validateRequiredParam('hotelCode', req, res, next);
 
-export const validateNameFromBodyNotFalsy = (
+export const validateNameFieldOfBody = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response | undefined => validateFieldOfBodyNotFalsy('name', req, res, next);
+): Response | undefined => validateRequiredFieldOfBody('name', req, res, next);
 
-export const validateCodeFromBodyNotFalsy = (
+export const validateCodeFieldOfBody = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response | undefined => validateFieldOfBodyNotFalsy('code', req, res, next);
+): Response | undefined => validateRequiredFieldOfBody('code', req, res, next);

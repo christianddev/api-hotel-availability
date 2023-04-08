@@ -2,9 +2,11 @@ import {
   EXCLUDE_ORM_FIELDS,
   EXCLUDE_TEMPORARY_DELETED,
   HOTEL_FK_ID_FIELD_NAME_SEQUELIZE,
-  SEQUELIZE_FIELDS
+  ROOM_ID_FIELD_NAME,
+  SEQUELIZE_FIELDS,
+  TEMPORARY_DELETE
 } from '../config';
-import { RoomModel } from '../database/models';
+import { RoomModel } from '../database';
 import { throwError } from './utils';
 import type { Room, RoomDatabaseResponse, RoomRequest } from '../types';
 
@@ -21,7 +23,11 @@ export const findAllRoomsByHotelId = async (
       },
       attributes: {
         exclude: excludeORMFields
-          ? [...SEQUELIZE_FIELDS, HOTEL_FK_ID_FIELD_NAME_SEQUELIZE]
+          ? [
+              ...SEQUELIZE_FIELDS,
+              ROOM_ID_FIELD_NAME,
+              HOTEL_FK_ID_FIELD_NAME_SEQUELIZE
+            ]
           : ['']
       }
     });
@@ -45,7 +51,11 @@ export const findOneRoomByCodeAndHotelId = async (
       },
       attributes: {
         exclude: excludeORMFields
-          ? [...SEQUELIZE_FIELDS, HOTEL_FK_ID_FIELD_NAME_SEQUELIZE]
+          ? [
+              ...SEQUELIZE_FIELDS,
+              ROOM_ID_FIELD_NAME,
+              HOTEL_FK_ID_FIELD_NAME_SEQUELIZE
+            ]
           : ['']
       }
     });
@@ -125,5 +135,52 @@ export const updateRoom = async ({
     };
   } catch (error) {
     throwError('updateRoom', error);
+  }
+};
+
+const destroyRoomFromModel = async (
+  code: string,
+  hotelId: number
+): Promise<number | undefined> => {
+  try {
+    const response = await RoomModel.destroy({
+      where: {
+        code,
+        hotelId
+      }
+    });
+
+    return response;
+  } catch (error) {
+    throwError('destroyRoomFromModel', error);
+  }
+};
+
+export const removeRoom = async (
+  code: string,
+  hotelId: number
+): Promise<any | undefined> => {
+  try {
+    // TODO: destroy al rooms, rates & inventory tables?
+
+    if (TEMPORARY_DELETE) {
+      const deletedHotel = await updateRoomFromModel({
+        code,
+        hotelId,
+        isDeleted: true
+      });
+
+      return {
+        data: { affectedRows: { deletedHotel } }
+      };
+    }
+
+    const deletedRoom = await destroyRoomFromModel(code, hotelId);
+
+    return {
+      data: { affectedRows: { deletedRoom } }
+    };
+  } catch (error) {
+    throwError('removeRoom', error);
   }
 };

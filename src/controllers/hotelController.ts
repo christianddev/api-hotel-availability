@@ -30,7 +30,7 @@ export const getHotel = async (
 ): Promise<Response> => {
   try {
     const code = req?.params?.hotelCode;
-    const hotel: Hotel = (await findOneHotelByCode({ code })) as Hotel;
+    const hotel = (await findOneHotelByCode(code)) as Hotel;
 
     if (hotel?.code) {
       return res.status(httpStatus?.OK).json({ data: { hotel } });

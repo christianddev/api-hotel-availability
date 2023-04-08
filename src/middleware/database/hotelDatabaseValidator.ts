@@ -1,8 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { badRequest, defaultErrorResponse, resourceNotFound } from '../common';
-import { findOneHotelByCode } from '../services';
-import type { ValidationByCodeProps } from '../types';
+import {
+  badRequest,
+  defaultErrorResponse,
+  resourceNotFound
+} from '../../common';
+import { findOneHotelByCode } from '../../services';
+import type { ValidationByCodeProps } from '../../types';
 
 const validateHotelByCode = async ({
   isUpdateOperation,
@@ -18,7 +22,7 @@ const validateHotelByCode = async ({
       : req?.body?.code
       ? String(req?.body?.code)
       : '';
-    const hotel = await findOneHotelByCode({ code }, false);
+    const hotel = await findOneHotelByCode(code, false, false);
 
     if (isUpdateOperation && !hotel?.id) {
       return resourceNotFound(`hotel with code '${code}' not found`, res);
@@ -33,7 +37,7 @@ const validateHotelByCode = async ({
   }
 };
 
-export const validateIfHotelByCodeExistsIntoDataBase = async (
+export const validateIfHotelExistsByCodeInDatabase = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -45,7 +49,7 @@ export const validateIfHotelByCodeExistsIntoDataBase = async (
     next
   });
 
-export const validateIfHotelByCodeFromParamsExistsIntoDataBase = async (
+export const validateIfHotelCodeParamExistsInDatabase = async (
   req: Request,
   res: Response,
   next: NextFunction

@@ -9,12 +9,12 @@ import {
   postHotel
 } from '../../controllers';
 import {
-  validateIfHotelByCodeFromParamsExistsIntoDataBase,
+  validateIfHotelCodeParamExistsInDatabase,
   Logger,
-  validateHotelCodeFromParamsNotFalsy,
-  validateIfHotelByCodeExistsIntoDataBase,
-  validateNameFromBodyNotFalsy,
-  validateCodeFromBodyNotFalsy
+  validateHotelCodeParam,
+  validateIfHotelExistsByCodeInDatabase,
+  validateNameFieldOfBody,
+  validateCodeFieldOfBody
 } from '../../middleware';
 import roomRoutes from './roomRoutes';
 
@@ -27,8 +27,8 @@ const hotelRouter = Router();
  *    get:
  *      tags:
  *        - Hotels
- *      operationId: getAllHotels
  *      summary: "Get list of hotels"
+ *      operationId: getAllHotels
  *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br> if the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
@@ -43,14 +43,14 @@ hotelRouter.get('/', [Logger], getHotels);
 /**
  * Get Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    get:
  *      tags:
  *        - Hotels
  *      summary: "Get Hotel"
  *      operationId: getHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
+ *        - $ref: "#/components/parameters/hotelCode"
  *      description: "Returns the information of an hotel.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
@@ -62,11 +62,7 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get(
-  '/:hotelCode',
-  [Logger, validateHotelCodeFromParamsNotFalsy],
-  getHotel
-);
+hotelRouter.get('/:hotelCode', [Logger, validateHotelCodeParam], getHotel);
 
 /**
  * Create Hotel
@@ -98,9 +94,9 @@ hotelRouter.post(
   '/',
   [
     Logger,
-    validateCodeFromBodyNotFalsy,
-    validateNameFromBodyNotFalsy,
-    validateIfHotelByCodeExistsIntoDataBase
+    validateCodeFieldOfBody,
+    validateNameFieldOfBody,
+    validateIfHotelExistsByCodeInDatabase
   ],
   postHotel
 );
@@ -108,14 +104,14 @@ hotelRouter.post(
 /**
  * Update Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    patch:
  *      tags:
  *        - Hotels
  *      summary: "Update Hotel"
  *      operationId: updateHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
+ *        - $ref: "#/components/parameters/hotelCode"
  *      description: "Update the hotel's **name**."
  *      requestBody:
  *          required: true
@@ -139,9 +135,9 @@ hotelRouter.patch(
   '/:hotelCode',
   [
     Logger,
-    validateHotelCodeFromParamsNotFalsy,
-    validateNameFromBodyNotFalsy,
-    validateIfHotelByCodeFromParamsExistsIntoDataBase
+    validateHotelCodeParam,
+    validateNameFieldOfBody,
+    validateIfHotelCodeParamExistsInDatabase
   ],
   patchHotel
 );
@@ -149,14 +145,14 @@ hotelRouter.patch(
 /**
  * Delete Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    delete:
  *      tags:
  *        - Hotels
  *      summary: "Delete Hotel"
  *      operationId: deleteHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
+ *        - $ref: "#/components/parameters/hotelCode"
  *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '200':
@@ -170,11 +166,7 @@ hotelRouter.patch(
  */
 hotelRouter.delete(
   '/:hotelCode',
-  [
-    Logger,
-    validateHotelCodeFromParamsNotFalsy,
-    validateIfHotelByCodeFromParamsExistsIntoDataBase
-  ],
+  [Logger, validateHotelCodeParam, validateIfHotelCodeParamExistsInDatabase],
   deleteHotel
 );
 

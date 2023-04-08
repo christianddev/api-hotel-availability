@@ -6,6 +6,7 @@ import defaultResponses from './responses/defaultResponses';
 import defaultSchemas from './schemas/defaultSchemas';
 import hotelResponses from './responses/hotelResponses';
 import hotelSchemas from './schemas/hotelSchemas';
+import roomSchemas from './schemas/roomSchemas';
 import hotelsExamples from './examples/hotelsExamples';
 import links from './common/links';
 import parameters from './common/parameters';
@@ -32,7 +33,7 @@ const swaggerDefinition: OAS3Definition = {
         scheme: 'bearer'
       }
     },
-    schemas: { ...defaultSchemas, ...hotelSchemas },
+    schemas: { ...defaultSchemas, ...hotelSchemas, ...roomSchemas },
     parameters,
     responses: { ...defaultResponses, ...hotelResponses },
     links,

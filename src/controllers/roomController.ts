@@ -7,9 +7,17 @@ import {
   findAllRoomsByHotelId,
   findOneHotelByCode,
   findOneRoomByCodeAndHotelId,
+  removeRoom,
   updateRoom
 } from '../services';
-import type { ErrorOperation, Room, RoomRequest } from '../types';
+import type { Hotel, Room, RoomRequest } from '../types';
+
+const getHotelByCode = async (
+  code: string,
+  excludeORMFields = false,
+  excludeTemporaryDeleted = false
+): Promise<Hotel | undefined> =>
+  await findOneHotelByCode(code, excludeORMFields, excludeTemporaryDeleted);
 
 export const getRooms = async (
   req: Request,
@@ -18,14 +26,9 @@ export const getRooms = async (
   try {
     const code = req?.params?.hotelCode;
 
-    const hotel = await findOneHotelByCode({ code });
+    const hotel = await getHotelByCode(code);
     if (!hotel) {
-      const error: ErrorOperation = {
-        status: httpStatus?.NOT_FOUND,
-        message: `hotel with code '${code}' not found`
-      };
-
-      return res.status(httpStatus?.NOT_FOUND).json({ error });
+      return resourceNotFound(`hotel with code '${code}' not found`, res);
     }
     const rooms = await findAllRoomsByHotelId(hotel.id);
 
@@ -41,9 +44,9 @@ export const getRoom = async (
 ): Promise<Response> => {
   try {
     const hotelCode = req?.params?.hotelCode;
-    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
+    const hotel = await getHotelByCode(hotelCode);
 
-    if (!hotel?.id) {
+    if (!hotel) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
     const roomCode = req?.params?.roomCode;
@@ -68,9 +71,9 @@ export const postRoom = async (
 ): Promise<Response> => {
   try {
     const hotelCode = req?.params?.hotelCode;
-    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
+    const hotel = await getHotelByCode(hotelCode);
 
-    if (!hotel?.code) {
+    if (!hotel) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
     const rawRoom: RoomRequest = req?.body;
@@ -91,8 +94,9 @@ export const patchRoom = async (
 ): Promise<Response> => {
   try {
     const hotelCode = req?.params?.hotelCode;
-    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
-    if (!hotel?.code) {
+    const hotel = await getHotelByCode(hotelCode);
+
+    if (!hotel) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
 
@@ -113,15 +117,21 @@ export const patchRoom = async (
   }
 };
 
-// export const deleteHotel = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   try {
-//     const response = await removeHotel(req?.params?.code);
+export const deleteRoom = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const hotelCode = req?.params?.hotelCode;
+    const hotel = await getHotelByCode(hotelCode);
 
-//     return res.status(httpStatus?.OK).json(response);
-//   } catch (err) {
-//     return defaultErrorResponse(err, res);
-//   }
-// };
+    if (!hotel) {
+      return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
+    }
+    const roomCode = req.params.roomCode;
+    const response = await removeRoom(roomCode, hotel?.id);
+    return res.status(httpStatus?.OK).json(response);
+  } catch (err) {
+    return defaultErrorResponse(err, res);
+  }
+};

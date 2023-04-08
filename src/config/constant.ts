@@ -60,7 +60,7 @@ export const EXCLUDE_TEMPORARY_DELETED =
 export const HOTEL_MODEL_NAME: string =
   process.env.DATABASE_HOTELS_MODEL_NAME ?? 'hotels';
 export const HOTEL_ID_FIELD_NAME: string =
-  process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'code';
+  process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'id';
 export const HOTEL_FK_ID_FIELD_NAME: string =
   process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_id';
 export const HOTEL_FK_ID_FIELD_NAME_SEQUELIZE: string =
