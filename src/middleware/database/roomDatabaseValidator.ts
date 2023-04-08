@@ -10,6 +10,7 @@ import {
   findOneRoomByCodeAndHotelId
 } from '../../services';
 import type { ValidationByCodeProps } from '../../types';
+import { getFirstTruthyValue } from '../utils';
 
 const validateRoomByCode = async ({
   isUpdateOperation,
@@ -27,13 +28,11 @@ const validateRoomByCode = async ({
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
 
-    const roomCode = req?.body?.roomCode
-      ? String(req?.body?.roomCode)
-      : req?.params?.roomCode
-      ? String(req?.params?.roomCode)
-      : req?.body?.code
-      ? String(req?.body?.code)
-      : '';
+    const roomCode = getFirstTruthyValue(
+      req?.body?.roomCode,
+      req?.params?.roomCode,
+      req?.body?.code
+    );
 
     const room = await findOneRoomByCodeAndHotelId(
       { roomCode, ...(findWithFKField ? { hotelId: hotel?.id } : '') },

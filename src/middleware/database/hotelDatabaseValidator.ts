@@ -7,6 +7,7 @@ import {
 } from '../../common';
 import { findOneHotelByCode } from '../../services';
 import type { ValidationByCodeProps } from '../../types';
+import { getFirstTruthyValue } from '../utils';
 
 const validateHotelByCode = async ({
   isUpdateOperation,
@@ -15,13 +16,11 @@ const validateHotelByCode = async ({
   next
 }: ValidationByCodeProps): Promise<Response | undefined> => {
   try {
-    const code = req?.body?.hotelCode
-      ? String(req?.body?.hotelCode)
-      : req?.params?.hotelCode
-      ? String(req?.params?.hotelCode)
-      : req?.body?.code
-      ? String(req?.body?.code)
-      : '';
+    const code = getFirstTruthyValue(
+      req?.body?.hotelCode,
+      req?.params?.hotelCode,
+      req?.body?.code
+    );
     const hotel = await findOneHotelByCode(code, false, false);
 
     if (isUpdateOperation && !hotel?.id) {

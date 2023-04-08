@@ -17,7 +17,7 @@ const getHotelByCode = async (
   excludeORMFields = false,
   excludeTemporaryDeleted = false
 ): Promise<Hotel | undefined> =>
-  await findOneHotelByCode(code, excludeORMFields, excludeTemporaryDeleted);
+  await findOneHotelByCode(code, excludeTemporaryDeleted, excludeORMFields);
 
 export const getRooms = async (
   req: Request,
