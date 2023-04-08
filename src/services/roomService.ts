@@ -93,3 +93,37 @@ export const createRoom = async (
     throwError('createRoom', error);
   }
 };
+
+const updateRoomFromModel = async ({
+  code,
+  name,
+  hotelId,
+  isDeleted
+}: RoomRequest): Promise<[affectedCount: number] | undefined> => {
+  try {
+    const response = await RoomModel.update(
+      { name, isDeleted },
+      { where: { code, hotelId } }
+    );
+
+    return response;
+  } catch (error) {
+    throwError('updateRoomFromModel', error);
+  }
+};
+
+export const updateRoom = async ({
+  code,
+  hotelId,
+  name
+}: RoomRequest): Promise<any | undefined> => {
+  try {
+    const affectedRows = await updateRoomFromModel({ code, hotelId, name });
+
+    return {
+      data: { affectedRows }
+    };
+  } catch (error) {
+    throwError('updateRoom', error);
+  }
+};

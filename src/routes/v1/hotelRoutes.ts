@@ -116,7 +116,7 @@ hotelRouter.post(
  *      operationId: updateHotel
  *      parameters:
  *        - $ref: "#/components/parameters/code"
- *      description: "Update the hotel's **name**, the new data must be unique in combination."
+ *      description: "Update the hotel's **name**."
  *      requestBody:
  *          required: true
  *          content:

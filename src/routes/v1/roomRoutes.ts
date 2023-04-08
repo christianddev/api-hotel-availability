@@ -11,7 +11,7 @@ import {
   validateNameFromBodyNotFalsy,
   validateRoomCodeFromParamsNotFalsy
 } from '../../middleware';
-import { getRoom, getRooms, postRoom } from '../../controllers';
+import { getRoom, getRooms, patchRoom, postRoom } from '../../controllers';
 
 const roomRouter = Router({ mergeParams: true });
 
@@ -33,7 +33,7 @@ const roomRouter = Router({ mergeParams: true });
  *      security:
  *       - jwtAuth: []
  */
-roomRouter.get('/', [Logger], getRooms);
+roomRouter.get('/', [Logger], validateHotelCodeFromParamsNotFalsy, getRooms);
 
 /**
  * Get Room
@@ -75,8 +75,8 @@ roomRouter.get(
  *    post:
  *      tags:
  *        - Rooms
- *      summary: "Create Hotel"
- *      operationId: createHotel
+ *      summary: "Create Room"
+ *      operationId: createRoom
  *      description: "This endpoint will add a new record to the **rooms** table.<br><br>**code** field must be unique."
  *      requestBody:
  *          required: true
@@ -107,46 +107,47 @@ roomRouter.post(
   postRoom
 );
 
-// /**
-//  * Update Hotel
-//  * @openapi
-//  * /api/v1/hotels/{code}:
-//  *    patch:
-//  *      tags:
-//  *        - Hotels
-//  *      summary: "Update Hotel"
-//  *      operationId: updateHotel
-//  *      parameters:
-//  *        - $ref: "#/components/parameters/code"
-//  *      description: "Update the hotel's **name**, the new data must be unique in combination."
-//  *      requestBody:
-//  *          required: true
-//  *          content:
-//  *            application/json:
-//  *              schema:
-//  *                $ref: "#/components/schemas/hotelUpdateRequest"
-//  *      responses:
-//  *        '200':
-//  *          $ref: "#/components/responses/patchHotel"
-//  *        '400':
-//  *          $ref: "#/components/responses/patchHotelBadRequest"
-//  *        '404':
-//  *          $ref: "#/components/responses/hotelNotFound"
-//  *        '500':
-//  *          $ref: "#/components/responses/internalServerError"
-//  *      security:
-//  *       - jwtAuth: []
-//  */
-// roomRouter.patch(
-//   '/:code',
-//   [
-//     Logger,
-//     validateRoomCodeFromParamsNotFalsy,
-//     validateNameFromBodyNotFalsy,
-//     validateHotelByCodeNotExistsIntoDataBase
-//   ],
-//   patchHotel
-// );
+/**
+ * Update Room
+ * @openapi
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}:
+ *    patch:
+ *      tags:
+ *        - Rooms
+ *      summary: "Update Room"
+ *      operationId: updateRoom
+ *      parameters:
+ *        - $ref: "#/components/parameters/code"
+ *      description: "Update the room's **name**."
+ *      requestBody:
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/hotelUpdateRequest"
+ *      responses:
+ *        '200':
+ *          $ref: "#/components/responses/patchHotel"
+ *        '400':
+ *          $ref: "#/components/responses/patchHotelBadRequest"
+ *        '404':
+ *          $ref: "#/components/responses/hotelNotFound"
+ *        '500':
+ *          $ref: "#/components/responses/internalServerError"
+ *      security:
+ *       - jwtAuth: []
+ */
+roomRouter.patch(
+  '/:roomCode',
+  [
+    Logger,
+    validateHotelCodeFromParamsNotFalsy,
+    validateRoomCodeFromParamsNotFalsy,
+    validateNameFromBodyNotFalsy,
+    validateIfRoomByCodeExistsIntoDataBase
+  ],
+  patchRoom
+);
 
 // /**
 //  * Delete Hotel

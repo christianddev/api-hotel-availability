@@ -6,7 +6,8 @@ import {
   createRoom,
   findAllRoomsByHotelId,
   findOneHotelByCode,
-  findOneRoomByCodeAndHotelId
+  findOneRoomByCodeAndHotelId,
+  updateRoom
 } from '../services';
 import type { ErrorOperation, Room, RoomRequest } from '../types';
 
@@ -84,23 +85,33 @@ export const postRoom = async (
   }
 };
 
-// export const patchHotel = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   const {
-//     body: { name },
-//     params: { code }
-//   } = req;
+export const patchRoom = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const hotelCode = req?.params?.hotelCode;
+    const hotel = await findOneHotelByCode({ code: hotelCode }, false);
+    if (!hotel?.code) {
+      return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
+    }
 
-//   try {
-//     const response = await updateHotel({ code, name });
+    const {
+      body: { name },
+      params: { roomCode }
+    } = req;
 
-//     return res.status(httpStatus?.OK).json(response);
-//   } catch (err) {
-//     return defaultErrorResponse(err, res);
-//   }
-// };
+    const response = await updateRoom({
+      code: roomCode,
+      hotelId: hotel?.id,
+      name
+    });
+
+    return res.status(httpStatus?.OK).json(response);
+  } catch (err) {
+    return defaultErrorResponse(err, res);
+  }
+};
 
 // export const deleteHotel = async (
 //   req: Request,
