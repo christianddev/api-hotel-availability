@@ -21,7 +21,6 @@ const validateRoomByCode = async ({
     }
 
     const roomCode: string = req?.body.code;
-    console.log('roomCode', roomCode);
     const room = await findOneRoomByCodeAndHotelId(
       { roomCode, ...(findWithFKField ? { hotelId: hotel?.id } : '') },
       false

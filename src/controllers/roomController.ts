@@ -66,7 +66,6 @@ export const postRoom = async (
   res: Response
 ): Promise<Response> => {
   try {
-    console.log('postRoom');
     const hotelCode = req?.params?.hotelCode;
     const hotel = await findOneHotelByCode({ code: hotelCode }, false);
 
@@ -75,7 +74,6 @@ export const postRoom = async (
     }
     const rawRoom: RoomRequest = req?.body;
     rawRoom.hotelId = hotel.id;
-    console.log('rawRoom', rawRoom);
     const newRoom = await createRoom(rawRoom);
 
     return res
