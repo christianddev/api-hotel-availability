@@ -2,12 +2,9 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import type { OAS3Definition, OAS3Options } from 'swagger-jsdoc';
 
 import { SERVER_ENVIRONMENT, SERVER_PORT } from '../config';
-import defaultResponses from './responses/defaultResponses';
-import defaultSchemas from './schemas/defaultSchemas';
-import hotelResponses from './responses/hotelResponses';
-import hotelSchemas from './schemas/hotelSchemas';
-import roomSchemas from './schemas/roomSchemas';
-import hotelsExamples from './examples/hotelsExamples';
+import { defaultResponses, hotelResponses, roomResponses } from './responses';
+import { defaultSchemas, hotelSchemas, roomSchemas } from './schemas';
+import { commonExamples, hotelsExamples, roomExamples } from './examples';
 import links from './common/links';
 import parameters from './common/parameters';
 
@@ -35,9 +32,9 @@ const swaggerDefinition: OAS3Definition = {
     },
     schemas: { ...defaultSchemas, ...hotelSchemas, ...roomSchemas },
     parameters,
-    responses: { ...defaultResponses, ...hotelResponses },
+    responses: { ...defaultResponses, ...hotelResponses, ...roomResponses },
     links,
-    examples: { ...hotelsExamples }
+    examples: { ...commonExamples, ...hotelsExamples, ...roomExamples }
   }
 };
 

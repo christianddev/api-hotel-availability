@@ -29,7 +29,7 @@ const swaggerDefinition: OAS3Definition = {
       },
       postHotelBadRequest: {
         description:
-          "Bad Request, Error related to the request data.<br><br>**name** fields must not be null, if you do not send this field, an error similar to `check **####** field` will be returned.<br><br>If the the **code** already exists in the database, it returns an error message similar to:<br>`a hotel exists with the code '###' & name '###'`.",
+          "Bad Request, Error related to the request data.<br><br>**name** fields must not be null, if you do not send this field, an error similar to `check **####** field` will be returned.<br><br>If the the **code** already exists in the database, it returns an error message similar to:<br>`a hotel exists with the code '###'`.",
         content: {
           'application/json': {
             schema: {

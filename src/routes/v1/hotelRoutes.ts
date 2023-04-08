@@ -29,7 +29,7 @@ const hotelRouter = Router();
  *        - Hotels
  *      summary: "Get list of hotels"
  *      operationId: getAllHotels
- *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br> if the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
+ *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/getHotels"
@@ -153,7 +153,7 @@ hotelRouter.patch(
  *      operationId: deleteHotel
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
- *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *      description: "Deletes a hotel's record.<br><br>**By default records are `NOT` **permanently deleted**, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/deletedHotel"

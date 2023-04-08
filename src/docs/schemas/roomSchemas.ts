@@ -8,25 +8,25 @@ const swaggerDefinition: OAS3Definition = {
   },
   components: {
     schemas: {
-      hotelRequest: {
+      roomRequest: {
         type: 'object',
         required: ['code', 'name'],
         properties: {
           code: {
             type: 'string',
-            description: "Hotel's code, the code field must be unique."
+            description: "Room's code, the code field must be unique."
           },
           name: {
             type: 'string',
-            description: "Hotel's name."
+            description: "Room's name."
           }
         },
         example: {
-          code: 'hotelOF',
-          name: 'Hotel Office Paper'
+          code: 'R001',
+          name: 'Deluxe Room'
         }
       },
-      hotelBadRequest: {
+      roomBadRequest: {
         type: 'object',
         required: ['error'],
         properties: {
@@ -46,34 +46,34 @@ const swaggerDefinition: OAS3Definition = {
           }
         }
       },
-      hotelUpdateRequest: {
+      roomUpdateRequest: {
         type: 'object',
         properties: {
           code: {
             type: 'string',
-            description: "Hotel's code, the code field must be unique.",
-            example: 'Hotel-O-P'
+            description: "Room's code, the code field must be unique.",
+            example: 'R001'
           },
           name: {
             type: 'string',
-            description: "Hotel's name.",
-            example: 'Hotel Office Paper'
+            description: "Room's name.",
+            example: 'Deluxe Room'
           }
         },
         example: {
-          code: 'Hotel-O-P',
-          name: 'Hotel Office Paper'
+          code: 'R001',
+          name: 'Deluxe Room'
         }
       },
-      getHotels: {
+      getRoom: {
         type: 'object',
         required: ['data'],
         properties: {
           data: {
             type: 'object',
-            required: ['hotels'],
+            required: ['rooms'],
             properties: {
-              hotels: {
+              rooms: {
                 type: 'array',
                 items: {
                   type: 'object',
@@ -86,14 +86,17 @@ const swaggerDefinition: OAS3Definition = {
                     },
                     code: {
                       type: 'string',
-                      description:
-                        "hotel's code, the code field must be unique."
+                      description: "Room's code, the code field must be unique."
                     },
                     name: {
                       type: 'string',
-                      description:
-                        "hotel's name, the name field must be unique."
+                      description: "Room's name."
                     }
+                  },
+                  example: {
+                    id: 1,
+                    cone: 'R001',
+                    code: 'Deluxe Room'
                   }
                 }
               }
@@ -101,13 +104,13 @@ const swaggerDefinition: OAS3Definition = {
           }
         }
       },
-      hotel: {
+      room: {
         type: 'object',
         required: ['data'],
         properties: {
           data: {
             type: 'object',
-            required: ['hotel'],
+            required: ['room'],
             properties: {
               hotel: {
                 type: 'object',
@@ -120,11 +123,16 @@ const swaggerDefinition: OAS3Definition = {
                   },
                   code: {
                     type: 'string',
-                    description: "Hotel's name, the code field must be unique."
+                    description: "Room's code, the code field must be unique."
                   },
                   name: {
                     type: 'string',
-                    description: "Hotel's name."
+                    description: "Room's name."
+                  },
+                  example: {
+                    id: 1,
+                    cone: 'R001',
+                    code: 'Deluxe Room'
                   }
                 }
               }
@@ -132,7 +140,7 @@ const swaggerDefinition: OAS3Definition = {
           }
         }
       },
-      hotelUpdate: {
+      roomUpdate: {
         type: 'object',
         required: ['data'],
         properties: {
@@ -151,7 +159,7 @@ const swaggerDefinition: OAS3Definition = {
           }
         }
       },
-      hotelDeleted: {
+      roomDeleted: {
         type: 'object',
         required: ['data'],
         properties: {
@@ -161,21 +169,11 @@ const swaggerDefinition: OAS3Definition = {
             properties: {
               affectedRows: {
                 type: 'object',
-                required: ['deletedHotelRelatedEntities', 'deletedHotel'],
+                required: ['deletedHotel'],
                 properties: {
-                  deletedHotelRelatedEntities: {
+                  deletedRoom: {
                     type: 'number',
-                    description:
-                      'Number of hotel associations and other tables that have been **temporarily** or **permanently** deleted.'
-                  },
-                  deletedHotel: {
-                    type: 'array',
-                    description:
-                      'Number of records in the **hotels** table that have been **temporarily** or **permanently** deleted.',
-                    items: {
-                      types: 'number',
-                      description: 'Number of records affected.'
-                    }
+                    description: 'Number of records affected.'
                   }
                 }
               }

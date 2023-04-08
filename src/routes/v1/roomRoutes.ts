@@ -32,7 +32,7 @@ const roomRouter = Router({ mergeParams: true });
  *      operationId: getAllRooms
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
- *      description: "Returns a list of rooms.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br> if the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
+ *      description: "Returns a list of rooms.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/getRooms"
@@ -136,14 +136,14 @@ roomRouter.post(
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/hotelUpdateRequest"
+ *                $ref: "#/components/schemas/roomUpdateRequest"
  *      responses:
  *        '200':
- *          $ref: "#/components/responses/patchHotel"
+ *          $ref: "#/components/responses/patchRoom"
  *        '400':
- *          $ref: "#/components/responses/patchHotelBadRequest"
+ *          $ref: "#/components/responses/patchRoomBadRequest"
  *        '404':
- *          $ref: "#/components/responses/hotelNotFound"
+ *          $ref: "#/components/responses/roomNotFound"
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
  *      security:
@@ -171,8 +171,9 @@ roomRouter.patch(
  *      summary: "Delete Room"
  *      operationId: deleteRoom
  *      parameters:
+ *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
- *      description: "Deletes a room's record.<br><br>`by default records are not permanently deleted`, updating the rooms table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *      description: "Deletes a room's record.<br><br>**By default records are `NOT` **permanently deleted**, updating the rooms table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/deletedRoom"
