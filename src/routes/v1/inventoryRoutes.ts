@@ -14,61 +14,61 @@ import {
   validateRoomCodeParam
 } from '../../middleware';
 import {
-  deleteRate,
-  getRate,
-  getRates,
-  patchRate,
-  postRate
-} from '../../controllers';
-import inventoryRouter from './inventoryRoutes';
+  deleteInventory,
+  getInventories,
+  getInventory,
+  patchInventory,
+  postInventory
+} from '../../controllers/';
 
-const rateRouter = Router({ mergeParams: true });
-
-/**
- * Get list of Rates
- * @openapi
- *  /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates:
- *    get:
- *      tags:
- *        - Rates
- *      summary: "Get list of rates"
- *      operationId: getAllRates
- *      parameters:
- *        - $ref: "#/components/parameters/hotelCode"
- *        - $ref: "#/components/parameters/roomCode"
- *      description: "Returns a list of rates.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
- *      responses:
- *        '500':
- *          $ref: "#/components/responses/internalServerError"
- */
-rateRouter.get(
-  '/',
-  [Logger],
-  validateHotelCodeParam,
-  validateRoomCodeParam,
-  getRates
-);
+const inventoryRouter = Router({ mergeParams: true });
 
 /**
- * Get Rate
+ * Get list of Inventories
  * @openapi
- * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
+ *  /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories:
  *    get:
  *      tags:
- *        - Rates
- *      summary: "Get Rate"
- *      operationId: getRate
+ *        - Inventory
+ *      summary: "Get list of inventories"
+ *      operationId: getAllInventories
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
- *      description: "Returns the information of an rate.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
+ *      description: "Returns a list of inventories.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
  */
-rateRouter.get(
-  '/:rateCode',
+inventoryRouter.get(
+  '/',
+  [Logger],
+  validateHotelCodeParam,
+  validateRoomCodeParam,
+  getInventories
+);
+
+/**
+ * Get Inventory
+ * @openapi
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories:
+ *    get:
+ *      tags:
+ *        - Inventory
+ *      summary: "Get Inventory"
+ *      operationId: getInventory
+ *      parameters:
+ *        - $ref: "#/components/parameters/hotelCode"
+ *        - $ref: "#/components/parameters/roomCode"
+ *        - $ref: "#/components/parameters/rateCode"
+ *      description: "Returns the information of an inventory.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
+ *      responses:
+ *        '500':
+ *          $ref: "#/components/responses/internalServerError"
+ */
+inventoryRouter.get(
+  '/:inventoryId',
   [
     Logger,
     validateHotelCodeParam,
@@ -76,27 +76,28 @@ rateRouter.get(
     validateIfHotelCodeParamExistsInDatabase,
     validateIfRoomByCodeExistsIntoDataBase
   ],
-  getRate
+  getInventory
 );
 
 /**
- * Create Rate
+ * Create Inventory
  * @openapi
- * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates:
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories:
  *    post:
  *      tags:
- *        - Rates
- *      summary: "Create Rate"
- *      operationId: createRate
+ *        - Inventory
+ *      summary: "Create Inventory"
+ *      operationId: createInventory
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
- *      description: "This endpoint will add a new record to the **rates** table.<br><br>**code** field must be unique."
+ *        - $ref: "#/components/parameters/rateCode"
+ *      description: "This endpoint will add a new record to the **inventories** table.<br><br>**date** and **rate_id** fields must be unique."
  *      responses:
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
  */
-rateRouter.post(
+inventoryRouter.post(
   '/',
   [
     Logger,
@@ -108,29 +109,29 @@ rateRouter.post(
     validateIfHotelCodeParamExistsInDatabase,
     validateIfRoomByCodeExistsIntoDataBase
   ],
-  postRate
+  postInventory
 );
 
 /**
- * Update Rate
+ * Update Inventory
  * @openapi
  * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
  *    patch:
  *      tags:
- *        - Rates
- *      summary: "Update Rate"
- *      operationId: updateRate
+ *        - Inventory
+ *      summary: "Update Inventory"
+ *      operationId: updateInventory
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
- *      description: "Update the rate's **name**."
+ *      description: "Update the inventory's **price**."
  *      responses:
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
  */
-rateRouter.patch(
-  '/:rateCode',
+inventoryRouter.patch(
+  '/:inventoryId',
   [
     Logger,
     validateHotelCodeParam,
@@ -141,7 +142,7 @@ rateRouter.patch(
     validateIfHotelCodeParamExistsInDatabase,
     validateIfRoomByCodeExistsIntoDataBase
   ],
-  patchRate
+  patchInventory
 );
 
 /**
@@ -150,7 +151,7 @@ rateRouter.patch(
  * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
  *    delete:
  *      tags:
- *        - Rates
+ *        - Inventory
  *      summary: "Delete Rate"
  *      operationId: deleteRate
  *      parameters:
@@ -162,8 +163,8 @@ rateRouter.patch(
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
  */
-rateRouter.delete(
-  '/:rateCode',
+inventoryRouter.delete(
+  '/:inventoryId',
   [
     Logger,
     validateHotelCodeParam,
@@ -171,9 +172,7 @@ rateRouter.delete(
     validateIfRoomByCodeExistsIntoDataBase,
     validateIfRateByCodeExistsIntoDataBase
   ],
-  deleteRate
+  deleteInventory
 );
 
-rateRouter.use('/:rateCode/inventories', inventoryRouter);
-
-export default rateRouter;
+export default inventoryRouter;

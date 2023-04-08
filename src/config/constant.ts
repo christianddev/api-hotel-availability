@@ -91,6 +91,8 @@ export const RATE_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_ID_FIELD_NAME ?? 'id';
 export const RATE_FK_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_id';
+export const RATE_FK_ID_FIELD_NAME_SEQUELIZE: string =
+  process.env.DATABASE_RATE_FK_ID_FIELD_NAME_SEQUELIZE ?? 'rataId';
 export const RATE_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_RATE_MODEL_NAME_LENGTH) ?? 150;
 export const RATE_MODEL_CODE_LENGTH: number =
@@ -103,3 +105,5 @@ export const RATE_CHECK_OUT_FIELD_NAME: string =
 // DATABASE INVENTORY MODEL
 export const INVENTORY_MODEL_NAME: string =
   process.env.DATABASE_INVENTORY_MODEL_NAME ?? 'inventories';
+export const INVENTORY_ID_FIELD_NAME: string =
+  process.env.DATABASE_INVENTORY_ID_FIELD_NAME ?? 'id';
