@@ -3,14 +3,13 @@ import httpStatus from 'http-status';
 
 import {
   createHotel,
-  finOneHotelByCode,
+  findOneHotelByCode,
   findAllHotels,
   removeHotel,
   updateHotel
 } from '../services';
-import { defaultErrorResponse } from './utils';
-import type { ErrorOperation } from '../types/api';
-import type { Hotel, HotelRequest } from '../types/hotel';
+import { defaultErrorResponse, resourceNotFound } from '../common';
+import type { Hotel, HotelRequest } from '../types';
 
 export const getHotels = async (
   _req: Request,
@@ -30,18 +29,14 @@ export const getHotel = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const code = req?.params?.code;
-    const hotel: Hotel = (await finOneHotelByCode(code)) as Hotel;
+    const code = req?.params?.hotelCode;
+    const hotel = (await findOneHotelByCode(code)) as Hotel;
 
     if (hotel?.code) {
       return res.status(httpStatus?.OK).json({ data: { hotel } });
     }
-    const error: ErrorOperation = {
-      status: httpStatus?.NOT_FOUND,
-      message: `hotel with code '${code}' not found`
-    };
 
-    return res.status(httpStatus?.NOT_FOUND).json({ error });
+    return resourceNotFound(`hotel with code '${code}' not found`, res);
   } catch (err) {
     return defaultErrorResponse(err, res);
   }
@@ -69,7 +64,7 @@ export const patchHotel = async (
 ): Promise<Response> => {
   const {
     body: { name },
-    params: { code }
+    params: { hotelCode: code }
   } = req;
 
   try {
@@ -86,7 +81,7 @@ export const deleteHotel = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const response = await removeHotel(req?.params?.code);
+    const response = await removeHotel(req?.params?.hotelCode);
 
     return res.status(httpStatus?.OK).json(response);
   } catch (err) {

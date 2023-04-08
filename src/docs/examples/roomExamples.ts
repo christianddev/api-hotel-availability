@@ -8,67 +8,65 @@ const swaggerDefinition: OAS3Definition = {
   },
   components: {
     examples: {
-      hotelsExists: {
-        summary: 'Hotel exists',
+      roomExists: {
+        summary: 'Room exists',
         description: 'The field **code** must be unique.',
         value: {
           error: {
             status: 400,
-            message: "a hotel exists with the code '###'."
+            message: "a room exists with the code '###'."
           }
         }
       },
-      hotelNotFound: {
-        summary: 'Hotel not found',
+      roomNotFound: {
+        summary: 'Room not found',
         description: 'Resource not found.',
         value: {
           error: {
             status: 404,
-            message: "hotel with code '###' not found"
+            message: "room with code '###' not found"
           }
         }
       },
-      hotel: {
-        summary: 'Hotel',
+      room: {
+        summary: 'Room',
         description: '',
         value: {
           data: {
-            hotel: {
+            room: {
               id: 1,
-              code: 'hotel1a',
-              name: 'Hotel 1a'
+              code: 'R001',
+              name: 'Room 1'
             }
           }
         }
       },
-      hotelsList: {
-        summary: 'List of hotels',
+      roomList: {
+        summary: 'List of rooms',
         description: '',
         value: {
           data: {
-            hotels: [
+            rooms: [
               {
-                id: 1,
-                code: 'hotel1a',
-                name: 'Hotel 1a'
+                code: 'R001',
+                name: 'Room 1a'
               },
               {
-                id: 2,
-                code: 'hotel2',
-                name: 'Hotel Office Paper'
+                code: 'R002',
+                name: 'Room 21'
               }
             ]
           }
         }
       },
-      hotelUpdatedRows: {
+      roomUpdatedRows: {
         summary: 'Affected rows',
         description:
-          'fields:<br><br>**deletedHotelRelatedEntities**: number of tables related with an hotel that have been **temporarily** or **permanently** deleted..<br><br>**deletedHotel**: number of records in the **hotels** table that have been **temporarily** or **permanently** deleted.',
+          'fields:**deletedRoom**: number of records in the **rooms** table that have been **temporarily** or **permanently** deleted.',
         value: {
           data: {
             affectedRows: {
-              deletedHotel: [1]
+              deletedRoom: [1]
             }
           }
         }

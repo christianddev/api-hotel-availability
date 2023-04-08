@@ -1,12 +1,13 @@
 import {
   EXCLUDE_ORM_FIELDS,
   EXCLUDE_TEMPORARY_DELETED,
+  HOTEL_ID_FIELD_NAME,
   SEQUELIZE_FIELDS,
   TEMPORARY_DELETE
 } from '../config';
-import { HotelModel } from '../database/models';
+import { HotelModel } from '../database';
 import { throwError } from './utils';
-import type { Hotel, HotelRequest } from '../types/hotel';
+import type { Hotel, HotelRequest } from '../types';
 
 export const findAllHotels = async (
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
@@ -18,7 +19,9 @@ export const findAllHotels = async (
         ...(excludeTemporaryDeleted && { isDeleted: false })
       },
       attributes: {
-        exclude: excludeORMFields ? SEQUELIZE_FIELDS : ['']
+        exclude: excludeORMFields
+          ? [...SEQUELIZE_FIELDS, HOTEL_ID_FIELD_NAME]
+          : ['']
       }
     });
     return hotels as unknown as Hotel[];
@@ -27,10 +30,10 @@ export const findAllHotels = async (
   }
 };
 
-export const finOneHotelByCode = async (
+export const findOneHotelByCode = async (
   code: string,
-  excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
-  excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
+  excludeTemporaryDeleted = EXCLUDE_TEMPORARY_DELETED,
+  excludeORMFields = EXCLUDE_ORM_FIELDS
 ): Promise<Hotel | undefined> => {
   try {
     const hotel = await HotelModel.findOne({
@@ -39,35 +42,15 @@ export const finOneHotelByCode = async (
         ...(excludeTemporaryDeleted && { isDeleted: false })
       },
       attributes: {
-        exclude: excludeORMFields ? SEQUELIZE_FIELDS : ['']
+        exclude: excludeORMFields
+          ? [...SEQUELIZE_FIELDS, HOTEL_ID_FIELD_NAME]
+          : ['']
       }
     });
 
     return hotel as unknown as Hotel;
   } catch (error) {
-    throwError('finOneHotelByCode', error);
-  }
-};
-
-export const findOneHotelByNameAndCode = async (
-  { name = '', code = '' }: HotelRequest,
-  excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
-  excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
-): Promise<Hotel | undefined> => {
-  try {
-    const hotel = await HotelModel.findOne({
-      where: {
-        code,
-        ...(excludeTemporaryDeleted && { isDeleted: false })
-      },
-      attributes: {
-        exclude: excludeORMFields ? SEQUELIZE_FIELDS : ['']
-      }
-    });
-
-    return hotel as unknown as Hotel;
-  } catch (error) {
-    throwError('findOneHotelByNameAndCode', error);
+    throwError('findOneHotelByCode', error);
   }
 };
 
@@ -163,8 +146,6 @@ const destroyHotelFromModel = async (
 
 export const removeHotel = async (code: string): Promise<any | undefined> => {
   try {
-    // TODO: destroy al rooms, rates & inventory tables?
-
     if (TEMPORARY_DELETE) {
       const deletedHotel = await updateHotelFromModel({
         code,

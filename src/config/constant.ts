@@ -14,11 +14,13 @@ export const SERVER_BASE_URL = process.env.SERVER_BASE_URL ?? 'api';
 export const SERVER_LOGGING = Boolean(process.env.SERVER_LOGGING);
 
 // API Path Routes
-export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? '';
+export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? 'hotels';
+export const SERVER_URL_ROOM = process.env.SERVER_URL_ROOM ?? 'rooms';
 export const SERVER_DOCUMENTATION_URL =
   process.env.SERVER_DOCUMENTATION_URL ?? '/documentation';
 export const DOCUMENTATION_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_DOCUMENTATION_URL}`;
 export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_HOTEL}`;
+export const ROOM_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_ROOM}`;
 
 // DATABASE BASE CONFIG
 export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
@@ -31,6 +33,8 @@ export const DATABASE_DIALECT: Dialect =
   (process.env.DATABASE_DIALECT as Dialect) ?? 'mysql';
 export const DATABASE_LOGGING: boolean =
   process.env.DATABASE_LOGGING === 'true';
+
+export const SEQUELIZE_FIELDS = ['isDeleted', 'createdAt', 'updatedAt'];
 
 // DATABASE SEQUELIZE CONFIG
 export const PRICE_PRECISION: number =
@@ -59,6 +63,8 @@ export const HOTEL_ID_FIELD_NAME: string =
   process.env.DATABASE_HOTEL_ID_FIELD_NAME ?? 'id';
 export const HOTEL_FK_ID_FIELD_NAME: string =
   process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME ?? 'hotel_id';
+export const HOTEL_FK_ID_FIELD_NAME_SEQUELIZE: string =
+  process.env.DATABASE_HOTEL_FK_ID_FIELD_NAME_SEQUELIZE ?? 'hotelId';
 export const HOTEL_MODEL_CODE_LENGTH: number =
   Number(process.env.DATABASE_HOTEL_MODEL_CODE_LENGTH) ?? 150;
 export const HOTEL_MODEL_NAME_LENGTH: number =
@@ -82,7 +88,7 @@ export const RATE_MODEL_NAME: string =
 export const RATE_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_ID_FIELD_NAME ?? 'id';
 export const RATE_FK_ID_FIELD_NAME: string =
-  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'room_id';
+  process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_id';
 export const RATE_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_RATE_MODEL_NAME_LENGTH) ?? 150;
 export const RATE_MODEL_CODE_LENGTH: number =
@@ -95,4 +101,3 @@ export const RATE_CHECK_OUT_FIELD_NAME: string =
 // DATABASE INVENTORY MODEL
 export const INVENTORY_MODEL_NAME: string =
   process.env.DATABASE_INVENTORY_MODEL_NAME ?? 'inventories';
-export const SEQUELIZE_FIELDS = ['isDeleted', 'createdAt', 'updatedAt'];

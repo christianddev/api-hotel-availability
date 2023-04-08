@@ -1,3 +1,3 @@
+export * from './database';
 export * from './fieldsValidator';
-export * from './hotelDatabaseValidator';
 export * from './logger';

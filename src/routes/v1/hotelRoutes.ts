@@ -9,11 +9,14 @@ import {
   postHotel
 } from '../../controllers';
 import {
+  validateIfHotelCodeParamExistsInDatabase,
   Logger,
-  validateHotelByCodeDataBase,
-  validateCodeFromParamsNotFalsy,
-  validateNameFromBodyNotFalsy
+  validateHotelCodeParam,
+  validateIfHotelExistsByCodeInDatabase,
+  validateNameFieldOfBody,
+  validateCodeFieldOfBody
 } from '../../middleware';
+import roomRoutes from './roomRoutes';
 
 const hotelRouter = Router();
 
@@ -24,9 +27,9 @@ const hotelRouter = Router();
  *    get:
  *      tags:
  *        - Hotels
- *      operationId: getAllHotels
  *      summary: "Get list of hotels"
- *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br> if the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
+ *      operationId: getAllHotels
+ *      description: "Returns a list of hotels.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/getHotels"
@@ -40,14 +43,14 @@ hotelRouter.get('/', [Logger], getHotels);
 /**
  * Get Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    get:
  *      tags:
  *        - Hotels
  *      summary: "Get Hotel"
  *      operationId: getHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
+ *        - $ref: "#/components/parameters/hotelCode"
  *      description: "Returns the information of an hotel.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '200':
@@ -59,7 +62,7 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get('/:code', [Logger, validateCodeFromParamsNotFalsy], getHotel);
+hotelRouter.get('/:hotelCode', [Logger, validateHotelCodeParam], getHotel);
 
 /**
  * Create Hotel
@@ -89,22 +92,27 @@ hotelRouter.get('/:code', [Logger, validateCodeFromParamsNotFalsy], getHotel);
  */
 hotelRouter.post(
   '/',
-  [Logger, validateNameFromBodyNotFalsy, validateHotelByCodeDataBase],
+  [
+    Logger,
+    validateCodeFieldOfBody,
+    validateNameFieldOfBody,
+    validateIfHotelExistsByCodeInDatabase
+  ],
   postHotel
 );
 
 /**
  * Update Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    patch:
  *      tags:
  *        - Hotels
  *      summary: "Update Hotel"
  *      operationId: updateHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
- *      description: "Update the hotel's **name**, the new data must be unique in combination."
+ *        - $ref: "#/components/parameters/hotelCode"
+ *      description: "Update the hotel's **name**."
  *      requestBody:
  *          required: true
  *          content:
@@ -124,12 +132,12 @@ hotelRouter.post(
  *       - jwtAuth: []
  */
 hotelRouter.patch(
-  '/:code',
+  '/:hotelCode',
   [
     Logger,
-    validateCodeFromParamsNotFalsy,
-    validateNameFromBodyNotFalsy,
-    validateHotelByCodeDataBase
+    validateHotelCodeParam,
+    validateNameFieldOfBody,
+    validateIfHotelCodeParamExistsInDatabase
   ],
   patchHotel
 );
@@ -137,15 +145,15 @@ hotelRouter.patch(
 /**
  * Delete Hotel
  * @openapi
- * /api/v1/hotels/{code}:
+ * /api/v1/hotels/{hotelCode}:
  *    delete:
  *      tags:
  *        - Hotels
  *      summary: "Delete Hotel"
  *      operationId: deleteHotel
  *      parameters:
- *        - $ref: "#/components/parameters/code"
- *      description: "Deletes a hotel's record.<br><br>`by default records are not permanently deleted`, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *        - $ref: "#/components/parameters/hotelCode"
+ *      description: "Deletes a hotel's record.<br><br>**By default records are `NOT` **permanently deleted**, updating the hotels table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '200':
  *          $ref: "#/components/responses/deletedHotel"
@@ -157,9 +165,11 @@ hotelRouter.patch(
  *       - jwtAuth: []
  */
 hotelRouter.delete(
-  '/:code',
-  [Logger, validateCodeFromParamsNotFalsy, validateHotelByCodeDataBase],
+  '/:hotelCode',
+  [Logger, validateHotelCodeParam, validateIfHotelCodeParamExistsInDatabase],
   deleteHotel
 );
+
+hotelRouter.use(`/:hotelCode/rooms`, roomRoutes);
 
 export default hotelRouter;
