@@ -24,31 +24,29 @@ CREATE TABLE rooms (
   CONSTRAINT rooms_hotel_id_fk FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE
 );
 
-INSERT INTO hotels (code, name) VALUES
-("HTL-001", "Hotel A"),
-("HTL-002", "Hotel B"),
-("HTL-003", "Hotel C"),
-("HTL-004", "Hotel D"),
-("HTL-005", "Hotel E"),
-("HTL-006", "Hotel F"),
-("HTL-007", "Hotel G"),
-("HTL-008", "Hotel H"),
-("HTL-009", "Hotel I"),
-("HTL-010", "Hotel J");
-
-INSERT INTO rooms (code, name, hotel_id) VALUES
-("ROOM-001", "Room 1", 1),
-("ROOM-002", "Room 2", 1),
-("ROOM-003", "Room 3", 2),
-("ROOM-004", "Room 4", 2),
-("ROOM-005", "Room 5", 3),
-("ROOM-006", "Room 6", 3),
-("ROOM-007", "Room 7", 4),
-("ROOM-008", "Room 8", 4),
-("ROOM-009", "Room 9", 5),
-("ROOM-010", "Room 10", 5);
-
 CREATE UNIQUE INDEX rooms_code_hotel_id_uindex ON rooms (code, hotel_id);
+
+INSERT INTO hotels (code, name) VALUES ('H001', 'Hotel Casa Blanca');
+INSERT INTO hotels (code, name) VALUES ('H002', 'Hotel El Dorado');
+INSERT INTO hotels (code, name) VALUES ('H003', 'Hotel Las Palmas');
+INSERT INTO hotels (code, name) VALUES ('H004', 'Hotel Playa Azul');
+INSERT INTO hotels (code, name) VALUES ('H005', 'Hotel San Rafael');
+INSERT INTO hotels (code, name) VALUES ('H006', 'Hotel Santa Maria');
+INSERT INTO hotels (code, name) VALUES ('H007', 'Hotel Sol y Mar');
+INSERT INTO hotels (code, name) VALUES ('H008', 'Hotel Villa Blanca');
+INSERT INTO hotels (code, name) VALUES ('H009', 'Hotel Vista Hermosa');
+INSERT INTO hotels (code, name) VALUES ('H010', 'Hotel Los Cocos');
+
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R001', 'Habitación Deluxe', 1);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R002', 'Habitación Estándar', 1);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R003', 'Habitación Ejecutiva', 2);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R004', 'Habitación Premium', 2);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R005', 'Habitación Junior Suite', 3);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R006', 'Habitación Suite Presidencial', 3);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R007', 'Habitación Superior', 4);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R008', 'Habitación Clásica', 5);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R009', 'Habitación Standard Plus', 6);
+INSERT INTO rooms (code, name, hotel_id) VALUES ('R010', 'Habitación Grand Suite', 7);
 
 CREATE TABLE rates (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
