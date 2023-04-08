@@ -34,6 +34,8 @@ export const DATABASE_DIALECT: Dialect =
 export const DATABASE_LOGGING: boolean =
   process.env.DATABASE_LOGGING === 'true';
 
+export const SEQUELIZE_FIELDS = ['isDeleted', 'createdAt', 'updatedAt'];
+
 // DATABASE SEQUELIZE CONFIG
 export const PRICE_PRECISION: number =
   Number(process.env.DATABASE_PRICE_PRECISION) ?? 10;
@@ -99,4 +101,3 @@ export const RATE_CHECK_OUT_FIELD_NAME: string =
 // DATABASE INVENTORY MODEL
 export const INVENTORY_MODEL_NAME: string =
   process.env.DATABASE_INVENTORY_MODEL_NAME ?? 'inventories';
-export const SEQUELIZE_FIELDS = ['isDeleted', 'createdAt', 'updatedAt'];

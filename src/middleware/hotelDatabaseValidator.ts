@@ -1,50 +1,58 @@
-import httpStatus from 'http-status';
 import type { NextFunction, Request, Response } from 'express';
 
-import { defaultErrorResponse } from '../controllers';
+import { badRequest, defaultErrorResponse, resourceNotFound } from '../common';
 import { findOneHotelByCode } from '../services';
-import type { HotelRequest, ErrorOperation } from '../types';
+import type { ValidationByCodeProps } from '../types';
 
-export const validateHotelByCodeExistsIntoDataBase = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response | undefined> => {
+const validateHotelByCode = async ({
+  isUpdateOperation,
+  req,
+  res,
+  next
+}: ValidationByCodeProps): Promise<Response | undefined> => {
   try {
-    const rawHotel: HotelRequest = req?.body;
-    const hotel = await findOneHotelByCode({ code: rawHotel?.code }, false);
+    const code = req?.body?.hotelCode
+      ? String(req?.body?.hotelCode)
+      : req?.params?.hotelCode
+      ? String(req?.params?.hotelCode)
+      : req?.body?.code
+      ? String(req?.body?.code)
+      : '';
+    const hotel = await findOneHotelByCode({ code }, false);
 
-    if (hotel?.id) {
-      const error: ErrorOperation = {
-        status: httpStatus?.BAD_REQUEST,
-        message: `a hotel exists with the code '${hotel?.code}' & name '${hotel?.name}'`
-      };
-      return res.status(httpStatus?.BAD_REQUEST).json({ error });
+    if (isUpdateOperation && !hotel?.id) {
+      return resourceNotFound(`hotel with code '${code}' not found`, res);
     }
+    if (!isUpdateOperation && hotel?.code) {
+      return badRequest(`a hotel exists with the code '${code}'`, res);
+    }
+
     next();
   } catch (err) {
     return defaultErrorResponse(err, res);
   }
 };
 
-export const validateHotelByCodeNotExistsIntoDataBase = async (
+export const validateIfHotelByCodeExistsIntoDataBase = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<Response | undefined> => {
-  try {
-    const code: string = req?.params?.hotelCode;
-    const hotel = await findOneHotelByCode({ code }, true);
+): Promise<Response | undefined> =>
+  await validateHotelByCode({
+    isUpdateOperation: false,
+    req,
+    res,
+    next
+  });
 
-    if (!hotel) {
-      const error: ErrorOperation = {
-        status: httpStatus?.NOT_FOUND,
-        message: `hotel with code '${code}' not found`
-      };
-      return res.status(httpStatus?.NOT_FOUND).json({ error });
-    }
-    next();
-  } catch (err) {
-    return defaultErrorResponse(err, res);
-  }
-};
+export const validateIfHotelByCodeFromParamsExistsIntoDataBase = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> =>
+  await validateHotelByCode({
+    isUpdateOperation: true,
+    req,
+    res,
+    next
+  });

@@ -1,7 +1,6 @@
-import httpStatus from 'http-status';
 import type { NextFunction, Request, Response } from 'express';
 
-import type { ErrorOperation } from '../types';
+import { badRequest } from '../common';
 
 const validateFieldOfParamsNotFalsy = (
   field: string,
@@ -10,11 +9,7 @@ const validateFieldOfParamsNotFalsy = (
   next: NextFunction
 ): Response | undefined => {
   if (!field || !req?.params?.[field]) {
-    const error: ErrorOperation = {
-      status: httpStatus?.BAD_REQUEST,
-      message: `check ${field} field`
-    };
-    return res.status(httpStatus?.BAD_REQUEST).json({ error });
+    return badRequest(`check ${field} field`, res);
   }
   next();
 };
@@ -26,11 +21,7 @@ const validateFieldOfBodyNotFalsy = (
   next: NextFunction
 ): Response | undefined => {
   if (!field || !req?.body?.[field]) {
-    const error: ErrorOperation = {
-      status: httpStatus?.BAD_REQUEST,
-      message: `check ${field} field`
-    };
-    return res.status(httpStatus?.BAD_REQUEST).json({ error });
+    return badRequest(`check ${field} field`, res);
   }
   next();
 };
@@ -54,3 +45,9 @@ export const validateNameFromBodyNotFalsy = (
   res: Response,
   next: NextFunction
 ): Response | undefined => validateFieldOfBodyNotFalsy('name', req, res, next);
+
+export const validateCodeFromBodyNotFalsy = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateFieldOfBodyNotFalsy('code', req, res, next);

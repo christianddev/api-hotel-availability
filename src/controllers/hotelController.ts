@@ -8,8 +8,8 @@ import {
   removeHotel,
   updateHotel
 } from '../services';
-import { defaultErrorResponse } from './utils';
-import type { Hotel, HotelRequest, ErrorOperation } from '../types';
+import { defaultErrorResponse, resourceNotFound } from '../common';
+import type { Hotel, HotelRequest } from '../types';
 
 export const getHotels = async (
   _req: Request,
@@ -35,12 +35,8 @@ export const getHotel = async (
     if (hotel?.code) {
       return res.status(httpStatus?.OK).json({ data: { hotel } });
     }
-    const error: ErrorOperation = {
-      status: httpStatus?.NOT_FOUND,
-      message: `hotel with code '${code}' not found`
-    };
 
-    return res.status(httpStatus?.NOT_FOUND).json({ error });
+    return resourceNotFound(`hotel with code '${code}' not found`, res);
   } catch (err) {
     return defaultErrorResponse(err, res);
   }

@@ -50,7 +50,7 @@ export const finOneHotelByCode = async (
 };
 
 export const findOneHotelByCode = async (
-  { code = '' }: HotelRequest,
+  { code }: HotelRequest,
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
   excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
 ): Promise<Hotel | undefined> => {
