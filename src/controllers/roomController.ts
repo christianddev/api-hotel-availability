@@ -128,8 +128,7 @@ export const deleteRoom = async (
     if (!hotel) {
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
-    const roomCode = req.params.roomCode;
-    const response = await removeRoom(roomCode, hotel?.id);
+    const response = await removeRoom(req.params.roomCode, hotel?.id);
     return res.status(httpStatus?.OK).json(response);
   } catch (err) {
     return defaultErrorResponse(err, res);
