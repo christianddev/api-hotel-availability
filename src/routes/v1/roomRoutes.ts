@@ -19,6 +19,8 @@ import {
   postRoom
 } from '../../controllers';
 
+import rateRouter from './rateRoutes';
+
 const roomRouter = Router({ mergeParams: true });
 
 /**
@@ -194,5 +196,7 @@ roomRouter.delete(
   ],
   deleteRoom
 );
+
+roomRouter.use(`/:roomCode/rates`, rateRouter);
 
 export default roomRouter;

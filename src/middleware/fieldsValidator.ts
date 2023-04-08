@@ -26,17 +26,23 @@ const validateRequiredFieldOfBody = (
   next();
 };
 
+export const validateHotelCodeParam = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined => validateRequiredParam('hotelCode', req, res, next);
+
 export const validateRoomCodeParam = (
   req: Request,
   res: Response,
   next: NextFunction
 ): Response | undefined => validateRequiredParam('roomCode', req, res, next);
 
-export const validateHotelCodeParam = (
+export const validateRateCodeParam = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response | undefined => validateRequiredParam('hotelCode', req, res, next);
+): Response | undefined => validateRequiredParam('rateCode', req, res, next);
 
 export const validateNameFieldOfBody = (
   req: Request,
@@ -49,3 +55,16 @@ export const validateCodeFieldOfBody = (
   res: Response,
   next: NextFunction
 ): Response | undefined => validateRequiredFieldOfBody('code', req, res, next);
+
+export const validateCheckInFieldOfBody = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined =>
+  validateRequiredFieldOfBody('checkIn', req, res, next);
+export const validateCheckOutFieldOfBody = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined =>
+  validateRequiredFieldOfBody('checkout', req, res, next);

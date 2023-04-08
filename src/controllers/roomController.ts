@@ -56,10 +56,10 @@ export const getRoom = async (
       hotelId: hotel?.id
     })) as Room;
 
-    if (room?.code) {
-      return res.status(httpStatus?.OK).json({ data: { room } });
+    if (!room) {
+      return resourceNotFound(`room with code '${roomCode}' not found`, res);
     }
-    return resourceNotFound(`room with code '${roomCode}' not found`, res);
+    return res.status(httpStatus?.OK).json({ data: { room } });
   } catch (err) {
     return defaultErrorResponse(err, res);
   }
