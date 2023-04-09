@@ -3,13 +3,13 @@ import { Router } from 'express';
 
 import {
   Logger,
-  validateCodeFieldOfBody,
-  validateHotelCodeParam,
-  validateIfHotelCodeParamExistsInDatabase,
-  validateIfRoomByCodeExistsIntoDataBase,
-  validateIfRoomByCodeNotExistsIntoDataBase,
-  validateNameFieldOfBody,
-  validateRoomCodeParam
+  validatesCodeFieldOfBody,
+  validatesHotelCodeParam,
+  validatesRoomByCodeHasNotBeenDeleted,
+  validatesIfTheRoomCodeIsInUse,
+  validatesNameFieldOfBody,
+  validatesRoomCodeParam,
+  validatesHotelByCodeHasNotBeenDeleted
 } from '../../middleware';
 import {
   deleteRoom,
@@ -43,7 +43,11 @@ const roomRouter = Router({ mergeParams: true });
  *      security:
  *       - jwtAuth: []
  */
-roomRouter.get('/', [Logger], validateHotelCodeParam, getRooms);
+roomRouter.get(
+  '/',
+  [Logger, validatesHotelCodeParam, validatesHotelByCodeHasNotBeenDeleted],
+  getRooms
+);
 
 /**
  * Get Room
@@ -72,9 +76,9 @@ roomRouter.get(
   '/:roomCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfHotelCodeParamExistsInDatabase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted
   ],
   getRoom
 );
@@ -111,11 +115,11 @@ roomRouter.post(
   '/',
   [
     Logger,
-    validateHotelCodeParam,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeNotExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesCodeFieldOfBody,
+    validatesNameFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesIfTheRoomCodeIsInUse
   ],
   postRoom
 );
@@ -155,10 +159,11 @@ roomRouter.patch(
   '/:roomCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateNameFieldOfBody,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesNameFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted
   ],
   patchRoom
 );
@@ -190,9 +195,10 @@ roomRouter.delete(
   '/:roomCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted
   ],
   deleteRoom
 );

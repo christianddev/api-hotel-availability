@@ -25,6 +25,24 @@ const swaggerDefinition: OAS3Definition = {
         schema: {
           type: 'string'
         }
+      },
+      rateCode: {
+        name: 'rateCode',
+        in: 'path',
+        description: 'Code of the rate to retrieve',
+        required: true,
+        schema: {
+          type: 'string'
+        }
+      },
+      inventoryId: {
+        name: 'inventoryId',
+        in: 'path',
+        description: 'Id of the inventory to retrieve',
+        required: true,
+        schema: {
+          type: 'string'
+        }
       }
     }
   }

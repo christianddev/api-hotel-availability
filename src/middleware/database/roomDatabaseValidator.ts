@@ -9,18 +9,14 @@ import {
   findOneHotelByCode,
   findOneRoomByCodeAndHotelId
 } from '../../services';
-import type { ValidationByCodeProps } from '../../types';
-import { getFirstTruthyValue } from '../utils';
 
-const validateRoomByCode = async ({
-  isUpdateOperation,
-  findWithFKField,
-  req,
-  res,
-  next
-}: ValidationByCodeProps): Promise<Response | undefined> => {
+export const validatesRoomByCodeHasNotBeenDeleted = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> => {
   try {
-    const hotelCode: string = req?.params.hotelCode;
+    const hotelCode = req?.params.hotelCode;
 
     const hotel = await findOneHotelByCode(hotelCode, false, false);
 
@@ -28,23 +24,50 @@ const validateRoomByCode = async ({
       return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
     }
 
-    const roomCode = getFirstTruthyValue(
-      req?.body?.roomCode,
-      req?.params?.roomCode,
-      req?.body?.code
-    );
+    const roomCode = req?.params?.roomCode;
 
     const room = await findOneRoomByCodeAndHotelId(
-      { roomCode, ...(findWithFKField ? { hotelId: hotel?.id } : '') },
-      false,
-      !findWithFKField
+      { roomCode, hotelId: hotel?.id },
+      true,
+      false
     );
 
-    if (isUpdateOperation && !room?.code) {
-      return resourceNotFound(`room with code '${roomCode}' not found`, res);
+    if (!room?.code) {
+      return resourceNotFound(
+        `room with code '${roomCode}' & hotel with code '${hotelCode}' not found`,
+        res
+      );
     }
 
-    if (!isUpdateOperation && room?.code) {
+    next();
+  } catch (err) {
+    return defaultErrorResponse(err, res);
+  }
+};
+
+export const validatesIfTheRoomCodeIsInUse = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | undefined> => {
+  try {
+    const hotelCode = req?.params.hotelCode;
+
+    const hotel = await findOneHotelByCode(hotelCode, false, false);
+
+    if (!hotel?.code) {
+      return resourceNotFound(`hotel with code '${hotelCode}' not found`, res);
+    }
+
+    const roomCode = String(req?.body?.code);
+
+    const room = await findOneRoomByCodeAndHotelId(
+      { roomCode, hotelId: hotel?.id },
+      false,
+      false
+    );
+
+    if (room?.code) {
       return badRequest(`a room exists with the code '${roomCode}'`, res);
     }
     next();
@@ -52,29 +75,3 @@ const validateRoomByCode = async ({
     return defaultErrorResponse(err, res);
   }
 };
-
-export const validateIfRoomByCodeExistsIntoDataBase = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response | undefined> =>
-  await validateRoomByCode({
-    isUpdateOperation: true,
-    findWithFKField: true,
-    req,
-    res,
-    next
-  });
-
-export const validateIfRoomByCodeNotExistsIntoDataBase = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response | undefined> =>
-  await validateRoomByCode({
-    isUpdateOperation: false,
-    findWithFKField: false,
-    req,
-    res,
-    next
-  });

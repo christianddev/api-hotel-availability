@@ -1,26 +1,26 @@
-export interface Rate {
+export interface Inventory {
   id: number;
   code: string;
   name: string;
-  checkIn?: Date;
-  checkout?: Date;
+  date?: Date;
+  price?: number;
+  availability?: number;
   isDeleted?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface RateRequest {
-  id?: string;
+export interface InventoryRequest {
+  id?: number;
   code?: string;
-  rateCode?: string;
-  name?: string;
+  rateId?: number;
+  date?: Date;
+  price?: number;
+  availability?: number;
   isDeleted?: boolean;
-  roomId?: number;
-  checkIn?: Date;
-  checkout?: Date;
 }
 
-export interface RateDatabaseResponse {
+export interface InventoryDatabaseResponse {
   id?: string;
   code: string;
   name?: string;

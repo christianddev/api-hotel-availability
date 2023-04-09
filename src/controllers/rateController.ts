@@ -36,7 +36,7 @@ export const getRates = async (
     }
     const rates = await findAllRateByRoomId(room.id);
 
-    return res.status(httpStatus.OK).json({ data: { rooms: rates } });
+    return res.status(httpStatus.OK).json({ data: { rates } });
   } catch (err) {
     return defaultErrorResponse(err, res);
   }

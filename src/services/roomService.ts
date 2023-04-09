@@ -161,17 +161,15 @@ export const removeRoom = async (
   hotelId: number
 ): Promise<any | undefined> => {
   try {
-    // TODO: destroy al rooms, rates & inventory tables?
-
     if (TEMPORARY_DELETE) {
-      const deletedHotel = await updateRoomFromModel({
+      const deletedRoom = await updateRoomFromModel({
         code,
         hotelId,
         isDeleted: true
       });
 
       return {
-        data: { affectedRows: { deletedHotel } }
+        data: { affectedRows: { deletedRoom } }
       };
     }
 

@@ -97,7 +97,7 @@ const swaggerDefinition: OAS3Definition = {
           }
         }
       },
-      patchroom: {
+      patchRoom: {
         description:
           "Update the room's **name**,<br><br>Taking into account the setting of environment variables  `TEMPORARY_DELETE` and `EXCLUDE_TEMPORARY_DELETED`.",
         content: {
