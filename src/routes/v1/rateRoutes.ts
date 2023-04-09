@@ -3,15 +3,16 @@ import { Router } from 'express';
 
 import {
   Logger,
-  validateCheckInFieldOfBody,
-  validateCheckOutFieldOfBody,
-  validateCodeFieldOfBody,
-  validateHotelCodeParam,
-  validateIfHotelCodeParamExistsInDatabase,
-  validateIfRateByCodeExistsIntoDataBase,
-  validateIfRoomByCodeExistsIntoDataBase,
-  validateNameFieldOfBody,
-  validateRoomCodeParam
+  validatesCheckInFieldOfBody,
+  validatesCheckOutFieldOfBody,
+  validatesCodeFieldOfBody,
+  validatesHotelCodeParam,
+  validatesNameFieldOfBody,
+  validatesRoomCodeParam,
+  validatesHotelByCodeHasNotBeenDeleted,
+  validatesIfTheRateCodeIsInUse,
+  validatesRateByCodeHasNotBeenDeleted,
+  validatesRoomByCodeHasNotBeenDeleted
 } from '../../middleware';
 import {
   deleteRate,
@@ -43,9 +44,13 @@ const rateRouter = Router({ mergeParams: true });
  */
 rateRouter.get(
   '/',
-  [Logger],
-  validateHotelCodeParam,
-  validateRoomCodeParam,
+  [
+    Logger,
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted
+  ],
   getRates
 );
 
@@ -71,10 +76,10 @@ rateRouter.get(
   '/:rateCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted
   ],
   getRate
 );
@@ -100,13 +105,13 @@ rateRouter.post(
   '/',
   [
     Logger,
-    validateHotelCodeParam,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateCheckInFieldOfBody,
-    validateCheckOutFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesCodeFieldOfBody,
+    validatesNameFieldOfBody,
+    validatesCheckInFieldOfBody,
+    validatesCheckOutFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesIfTheRateCodeIsInUse
   ],
   postRate
 );
@@ -133,13 +138,10 @@ rateRouter.patch(
   '/:rateCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateCheckInFieldOfBody,
-    validateCheckOutFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted
   ],
   patchRate
 );
@@ -166,10 +168,11 @@ rateRouter.delete(
   '/:rateCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfRoomByCodeExistsIntoDataBase,
-    validateIfRateByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted
   ],
   deleteRate
 );

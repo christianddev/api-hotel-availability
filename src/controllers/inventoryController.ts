@@ -3,12 +3,12 @@ import type { Request, Response } from 'express';
 
 import { defaultErrorResponse, resourceNotFound } from '../common';
 import {
-  findOneRateByCodeRoomId,
   createInventory,
   findAllInventoryByRateId,
+  findOneInventoryByOptionalParams,
+  findOneRateByCodeRoomId,
   removeInventory,
-  updateInventory,
-  findOneInventoryByCodeAndRateId
+  updateInventory
 } from '../services';
 import type { Inventory, InventoryRequest, Rate } from '../types';
 
@@ -55,7 +55,7 @@ export const getInventory = async (
     }
     const id = Number(req?.params?.inventoryId);
 
-    const inventory: Inventory = (await findOneInventoryByCodeAndRateId({
+    const inventory: Inventory = (await findOneInventoryByOptionalParams({
       id,
       rateId: rate?.id
     })) as Inventory;
@@ -83,9 +83,9 @@ export const postInventory = async (
     if (!rate) {
       return resourceNotFound(`rate with code '${rateCode}' not found`, res);
     }
-    const rateInventory: InventoryRequest = req?.body;
-    rateInventory.rateId = rate.id;
-    const newInventory = await createInventory(rateInventory);
+    const rawInventory: InventoryRequest = req?.body;
+    rawInventory.rateId = rate.id;
+    const newInventory = await createInventory(rawInventory);
 
     return res.status(httpStatus?.CREATED).json({
       data: { inventory: newInventory?.data }
@@ -107,7 +107,7 @@ export const patchInventory = async (
       return resourceNotFound(`rate with code '${rateCode}' not found`, res);
     }
 
-    const { price, availability, date } = req.body;
+    const { price, availability } = req.body;
 
     // TODO: check this into middleware
     const id = Number(req.params?.inventoryId);
@@ -115,8 +115,7 @@ export const patchInventory = async (
       id,
       price,
       availability,
-      rateId: rate?.id,
-      date
+      rateId: rate?.id
     });
 
     return res.status(httpStatus?.OK).json(response);

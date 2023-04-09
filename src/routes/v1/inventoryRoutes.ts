@@ -3,15 +3,17 @@ import { Router } from 'express';
 
 import {
   Logger,
-  validateCheckInFieldOfBody,
-  validateCheckOutFieldOfBody,
-  validateCodeFieldOfBody,
-  validateHotelCodeParam,
-  validateIfHotelCodeParamExistsInDatabase,
-  validateIfRateByCodeExistsIntoDataBase,
-  validateIfRoomByCodeExistsIntoDataBase,
-  validateNameFieldOfBody,
-  validateRoomCodeParam
+  validatesAvailabilityFieldOfBody,
+  validatesDateFieldOfBody,
+  validatesHotelCodeParam,
+  validatesInventoryIdType,
+  validatesPriceFieldOfBody,
+  validatesRoomCodeParam,
+  validatesHotelByCodeHasNotBeenDeleted,
+  validatesIfTheInventoryByDateAndRateCodeIsInUse,
+  validatesInventoryByIdHasNotBeenDeleted,
+  validatesRateByCodeHasNotBeenDeleted,
+  validatesRoomByCodeHasNotBeenDeleted
 } from '../../middleware';
 import {
   deleteInventory,
@@ -43,9 +45,14 @@ const inventoryRouter = Router({ mergeParams: true });
  */
 inventoryRouter.get(
   '/',
-  [Logger],
-  validateHotelCodeParam,
-  validateRoomCodeParam,
+  [
+    Logger,
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted
+  ],
   getInventories
 );
 
@@ -72,10 +79,11 @@ inventoryRouter.get(
   '/:inventoryId',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted
   ],
   getInventory
 );
@@ -102,13 +110,14 @@ inventoryRouter.post(
   '/',
   [
     Logger,
-    validateHotelCodeParam,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateCheckInFieldOfBody,
-    validateCheckOutFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesDateFieldOfBody,
+    validatesPriceFieldOfBody,
+    validatesAvailabilityFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted,
+    validatesIfTheInventoryByDateAndRateCodeIsInUse
   ],
   postInventory
 );
@@ -136,13 +145,14 @@ inventoryRouter.patch(
   '/:inventoryId',
   [
     Logger,
-    validateHotelCodeParam,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateCheckInFieldOfBody,
-    validateCheckOutFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase,
-    validateIfRoomByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesPriceFieldOfBody,
+    validatesAvailabilityFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted,
+    validatesInventoryByIdHasNotBeenDeleted,
+    validatesIfTheInventoryByDateAndRateCodeIsInUse
   ],
   patchInventory
 );
@@ -170,10 +180,13 @@ inventoryRouter.delete(
   '/:inventoryId',
   [
     Logger,
-    validateHotelCodeParam,
-    validateRoomCodeParam,
-    validateIfRoomByCodeExistsIntoDataBase,
-    validateIfRateByCodeExistsIntoDataBase
+    validatesHotelCodeParam,
+    validatesRoomCodeParam,
+    validatesInventoryIdType,
+    validatesHotelByCodeHasNotBeenDeleted,
+    validatesRoomByCodeHasNotBeenDeleted,
+    validatesRateByCodeHasNotBeenDeleted,
+    validatesInventoryByIdHasNotBeenDeleted
   ],
   deleteInventory
 );

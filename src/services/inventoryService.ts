@@ -36,16 +36,17 @@ export const findAllInventoryByRateId = async (
   }
 };
 
-export const findOneInventoryByCodeAndRateId = async (
-  { id, rateId }: InventoryRequest,
+export const findOneInventoryByOptionalParams = async (
+  { id, date, rateId }: InventoryRequest,
   excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
   excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
 ): Promise<Inventory | undefined> => {
   try {
     const inventory = await InventoryModel.findOne({
       where: {
-        id,
+        ...(id ? { id } : ''),
         ...(rateId ? { rateId } : ''),
+        ...(date ? { date } : ''),
         ...(excludeTemporaryDeleted && { isDeleted: false })
       },
       attributes: {
@@ -57,7 +58,7 @@ export const findOneInventoryByCodeAndRateId = async (
 
     return inventory as unknown as Inventory;
   } catch (error) {
-    throwError('findOneInventoryByCodeAndRateId', error);
+    throwError('findOneInventoryByOptionalParams', error);
   }
 };
 
@@ -93,7 +94,6 @@ export const createInventory = async (
         availability: rawInventory?.availability
       });
 
-    console.log('dataValues', dataValues);
     return {
       data: dataValues
     };
@@ -172,21 +172,21 @@ export const removeInventory = async (
 ): Promise<any | undefined> => {
   try {
     if (TEMPORARY_DELETE) {
-      const deletedHotel = await updateInventoryFromModel({
+      const deletedInventory = await updateInventoryFromModel({
         id,
         rateId,
         isDeleted: true
       });
 
       return {
-        data: { affectedRows: { deletedHotel } }
+        data: { affectedRows: { deletedInventory } }
       };
     }
 
     const deletedInventory = await destroyInventoryFromModel(id, rateId);
 
     return {
-      data: { affectedRows: { deletedRate: deletedInventory } }
+      data: { affectedRows: { deletedInventory } }
     };
   } catch (error) {
     throwError('removeInventory', error);
