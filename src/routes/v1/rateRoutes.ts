@@ -145,7 +145,7 @@ rateRouter.patch(
 );
 
 /**
- * Delete Room
+ * Delete Rate
  * @openapi
  * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
  *    delete:

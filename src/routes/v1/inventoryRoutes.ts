@@ -52,7 +52,7 @@ inventoryRouter.get(
 /**
  * Get Inventory
  * @openapi
- * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories:
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories/{inventoryId}:
  *    get:
  *      tags:
  *        - Inventory
@@ -62,6 +62,7 @@ inventoryRouter.get(
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
+ *        - $ref: "#/components/parameters/inventoryId"
  *      description: "Returns the information of an inventory.<br><br>If the environment variable `EXCLUDE_ORM_FIELDS` is active, the **isDeleted**, **createdAt** and **updatedAt** fields are displayed.<br><br>If the environment variable `EXCLUDE_TEMPORARY_DELETED` is active, it does not return the records where the **isDeleted** field is **true**."
  *      responses:
  *        '500':
@@ -92,7 +93,7 @@ inventoryRouter.get(
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
- *      description: "This endpoint will add a new record to the **inventories** table.<br><br>**date** and **rate_id** fields must be unique."
+ *      description: "This endpoint will add a new record to the **inventories** table."
  *      responses:
  *        '500':
  *          $ref: "#/components/responses/internalServerError"
@@ -115,7 +116,7 @@ inventoryRouter.post(
 /**
  * Update Inventory
  * @openapi
- * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories/{inventoryId}:
  *    patch:
  *      tags:
  *        - Inventory
@@ -125,6 +126,7 @@ inventoryRouter.post(
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
+ *        - $ref: "#/components/parameters/inventoryId"
  *      description: "Update the inventory's **price**."
  *      responses:
  *        '500':
@@ -146,19 +148,20 @@ inventoryRouter.patch(
 );
 
 /**
- * Delete Room
+ * Delete Inventory
  * @openapi
- * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}:
+ * /api/v1/hotels/{hotelCode}/rooms/{roomCode}/rates/{rateCode}/inventories/{inventoryId}:
  *    delete:
  *      tags:
  *        - Inventory
- *      summary: "Delete Rate"
- *      operationId: deleteRate
+ *      summary: "Delete Inventory"
+ *      operationId: deleteInventory
  *      parameters:
  *        - $ref: "#/components/parameters/hotelCode"
  *        - $ref: "#/components/parameters/roomCode"
  *        - $ref: "#/components/parameters/rateCode"
- *      description: "Deletes a rate's record.<br><br>**By default records are `NOT` **permanently deleted**, updating the rates table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
+ *        - $ref: "#/components/parameters/inventoryId"
+ *      description: "Deletes a Inventory's record.<br><br>**By default records are `NOT` **permanently deleted**, updating the inventories table with the **isDeleted** property set to true.<br><br>**If the `TEMPORARY_DELETE` environment variable is set, the records will be permanently deleted**."
  *      responses:
  *        '500':
  *          $ref: "#/components/responses/internalServerError"

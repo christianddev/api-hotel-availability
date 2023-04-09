@@ -65,7 +65,7 @@ const swaggerDefinition: OAS3Definition = {
           name: 'Deluxe Room'
         }
       },
-      getRoom: {
+      getRooms: {
         type: 'object',
         required: ['data'],
         properties: {
@@ -112,7 +112,7 @@ const swaggerDefinition: OAS3Definition = {
             type: 'object',
             required: ['room'],
             properties: {
-              hotel: {
+              room: {
                 type: 'object',
                 required: ['id', 'code', 'name'],
                 properties: {
@@ -169,7 +169,7 @@ const swaggerDefinition: OAS3Definition = {
             properties: {
               affectedRows: {
                 type: 'object',
-                required: ['deletedHotel'],
+                required: ['deletedRoom'],
                 properties: {
                   deletedRoom: {
                     type: 'number',

@@ -15,6 +15,14 @@ const swaggerDefinition: OAS3Definition = {
         parameters: {
           code: '$request.path.code'
         }
+      },
+      roomCode: {
+        operationId: 'getRoom',
+        description:
+          'The `code` value returned in the response can be used as the code parameter in:<br><br> - `GET`<br>api/v1/hotels/{hotelCode}/rooms/{roomCode}<br> - `PATCH`<br>api/v1/hotels/{hotelCode}/rooms/{roomCode}<br> - `DELETE`<br>api/v1/hotels/{hotelCode}/rooms/{roomCode} and others request of **Rates** & **Inventory**',
+        parameters: {
+          code: '$request.path.code'
+        }
       }
     }
   }
