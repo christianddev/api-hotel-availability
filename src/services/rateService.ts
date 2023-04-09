@@ -168,14 +168,14 @@ export const removeRate = async (
 ): Promise<any | undefined> => {
   try {
     if (TEMPORARY_DELETE) {
-      const deletedHotel = await updateRateFromModel({
+      const deletedRate = await updateRateFromModel({
         code,
         roomId,
         isDeleted: true
       });
 
       return {
-        data: { affectedRows: { deletedHotel } }
+        data: { affectedRows: { deletedRate } }
       };
     }
 

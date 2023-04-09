@@ -9,12 +9,12 @@ import {
   postHotel
 } from '../../controllers';
 import {
-  validateIfHotelCodeParamExistsInDatabase,
   Logger,
-  validateHotelCodeParam,
-  validateIfHotelExistsByCodeInDatabase,
-  validateNameFieldOfBody,
-  validateCodeFieldOfBody
+  validatesCodeFieldOfBody,
+  validatesHotelCodeParam,
+  validatesNameFieldOfBody,
+  validatesHotelByCodeHasNotBeenDeleted,
+  validatesIfTheHotelCodeIsInUse
 } from '../../middleware';
 import roomRoutes from './roomRoutes';
 
@@ -62,7 +62,7 @@ hotelRouter.get('/', [Logger], getHotels);
  *      security:
  *       - jwtAuth: []
  */
-hotelRouter.get('/:hotelCode', [Logger, validateHotelCodeParam], getHotel);
+hotelRouter.get('/:hotelCode', [Logger, validatesHotelCodeParam], getHotel);
 
 /**
  * Create Hotel
@@ -94,9 +94,9 @@ hotelRouter.post(
   '/',
   [
     Logger,
-    validateCodeFieldOfBody,
-    validateNameFieldOfBody,
-    validateIfHotelExistsByCodeInDatabase
+    validatesCodeFieldOfBody,
+    validatesNameFieldOfBody,
+    validatesIfTheHotelCodeIsInUse
   ],
   postHotel
 );
@@ -135,9 +135,9 @@ hotelRouter.patch(
   '/:hotelCode',
   [
     Logger,
-    validateHotelCodeParam,
-    validateNameFieldOfBody,
-    validateIfHotelCodeParamExistsInDatabase
+    validatesHotelCodeParam,
+    validatesNameFieldOfBody,
+    validatesHotelByCodeHasNotBeenDeleted
   ],
   patchHotel
 );
@@ -166,7 +166,7 @@ hotelRouter.patch(
  */
 hotelRouter.delete(
   '/:hotelCode',
-  [Logger, validateHotelCodeParam, validateIfHotelCodeParamExistsInDatabase],
+  [Logger, validatesHotelCodeParam, validatesHotelByCodeHasNotBeenDeleted],
   deleteHotel
 );
 
