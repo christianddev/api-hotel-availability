@@ -92,7 +92,7 @@ export const RATE_ID_FIELD_NAME: string =
 export const RATE_FK_ID_FIELD_NAME: string =
   process.env.DATABASE_RATE_FK_ID_FIELD_NAME ?? 'rate_id';
 export const RATE_FK_ID_FIELD_NAME_SEQUELIZE: string =
-  process.env.DATABASE_RATE_FK_ID_FIELD_NAME_SEQUELIZE ?? 'rataId';
+  process.env.DATABASE_RATE_FK_ID_FIELD_NAME_SEQUELIZE ?? 'rateId';
 export const RATE_MODEL_NAME_LENGTH: number =
   Number(process.env.DATABASE_RATE_MODEL_NAME_LENGTH) ?? 150;
 export const RATE_MODEL_CODE_LENGTH: number =

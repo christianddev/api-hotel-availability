@@ -28,7 +28,7 @@ export const getInventories = async (
   res: Response<unknown, Record<string, unknown>>
 ): Promise<Response> => {
   try {
-    const rateCode = req?.params?.roomCode;
+    const rateCode = req?.params?.rateCode;
 
     const rate = await getRateByCode(rateCode);
     if (!rate) {
@@ -61,7 +61,10 @@ export const getInventory = async (
     })) as Inventory;
 
     if (!inventory) {
-      return resourceNotFound(`inventory with id '${id}' not found`, res);
+      return resourceNotFound(
+        `inventory with id '${id}' & rate code '${rateCode}' not found`,
+        res
+      );
     }
     return res.status(httpStatus?.OK).json({ data: { inventory } });
   } catch (err) {
@@ -74,7 +77,7 @@ export const postInventory = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const rateCode = req?.params?.roomCode;
+    const rateCode = req?.params?.rateCode;
     const rate = await getRateByCode(rateCode);
 
     if (!rate) {
@@ -97,7 +100,7 @@ export const patchInventory = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const rateCode = req?.params?.roomCode;
+    const rateCode = req?.params?.rateCode;
     const rate = await getRateByCode(rateCode);
 
     if (!rate) {
@@ -127,7 +130,7 @@ export const deleteInventory = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const rateCode = req?.params?.roomCode;
+    const rateCode = req?.params?.rateCode;
     const rate = await getRateByCode(rateCode);
 
     if (!rate) {
