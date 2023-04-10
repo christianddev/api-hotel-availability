@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { type Request, type Response } from 'express';
 import httpStatus from 'http-status';
 
 import { defaultErrorResponse, resourceNotFound } from '../common';
 import {
-  findAllInventoryByRateId,
   findAllInventoryByRateIdAndCheckDates,
   findAllRateByRoomId,
   findAllRoomsByHotelId,
   findOneHotelByCode
 } from '../services';
+import { getDateFormatted } from './utils';
 import type {
   AvailabilityByHotel,
   BreakdownByRate,
@@ -18,7 +17,6 @@ import type {
   RatesByRoom,
   Room
 } from '../types';
-import { getDateFormatted } from './utils';
 
 const getBreakdownByInventoryDate = async (
   inventoriesByRateId: Inventory[]
