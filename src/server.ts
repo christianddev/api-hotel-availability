@@ -47,7 +47,7 @@ function close(app: Application): void {
 
 async function createServer(): Promise<void> {
   const app = express();
-  // await dbConnection();
+  await dbConnection();
   middleware(app);
   routes(app);
   listen(app, SERVER_PORT);

@@ -4,7 +4,8 @@ import type { Dialect } from 'sequelize';
 dotenv.config();
 
 // API
-export const SERVER_PORT = process.env.SERVER_PORT ?? '8000';
+export const SERVER_PORT =
+  process.env.PORT ?? process.env.SERVER_PORT ?? '8000';
 export const SERVER_ENVIRONMENT =
   process.env.SERVER_ENVIRONMENT ?? 'development';
 export const SERVER_PUBLIC_DIR = process.env.SERVER_PUBLIC_DIR ?? 'public';
