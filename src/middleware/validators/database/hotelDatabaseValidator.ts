@@ -4,8 +4,8 @@ import {
   badRequest,
   defaultErrorResponse,
   resourceNotFound
-} from '../../common';
-import { findOneHotelByCode } from '../../services';
+} from '../../../common';
+import { findOneHotelByCode } from '../../../services';
 
 export const validatesHotelByCodeHasNotBeenDeleted = async (
   req: Request,

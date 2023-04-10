@@ -4,11 +4,11 @@ import {
   badRequest,
   defaultErrorResponse,
   resourceNotFound
-} from '../../common';
+} from '../../../common';
 import {
   findOneInventoryByOptionalParams,
   findOneRateByCodeRoomId
-} from '../../services';
+} from '../../../services';
 
 export const validatesInventoryByIdHasNotBeenDeleted = async (
   req: Request,

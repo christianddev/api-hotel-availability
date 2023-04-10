@@ -4,11 +4,11 @@ import {
   badRequest,
   defaultErrorResponse,
   resourceNotFound
-} from '../../common';
+} from '../../../common';
 import {
   findOneHotelByCode,
   findOneRoomByCodeAndHotelId
-} from '../../services';
+} from '../../../services';
 
 export const validatesRoomByCodeHasNotBeenDeleted = async (
   req: Request,

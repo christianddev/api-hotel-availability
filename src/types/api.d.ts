@@ -13,3 +13,27 @@ export interface ValidationByCodeProps {
   res: Response;
   next: NextFunction;
 }
+
+export type BreakdownByRate = Record<
+  string,
+  {
+    price: number;
+    availability: number;
+  }
+>;
+
+export type RatesByRoom = Record<
+  string,
+  {
+    name: string;
+    breakdown: BreakdownByRate;
+  }
+>;
+
+export type AvailabilityByHotel = Record<
+  string,
+  {
+    name: string;
+    rates: RatesByRoom;
+  }
+>;
