@@ -38,3 +38,17 @@ export const validatesInventoryIdParam = (
   next: NextFunction
 ): Response | undefined =>
   validatesRequiredParam('inventoryId', req, res, next);
+
+export const validatesCheckInDateParam = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined =>
+  validatesRequiredParam('checkInDate', req, res, next);
+
+export const validatesCheckOutDateParam = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | undefined =>
+  validatesRequiredParam('checkOutDate', req, res, next);
