@@ -6,10 +6,11 @@ import {
   DOCUMENTATION_PATH,
   HOTEL_PATH,
   SERVER_PORT,
-  SERVER_PUBLIC_DIR
+  SERVER_PUBLIC_DIR,
+  AVAILABILITY_PATH
 } from './config/';
 import swaggerSetup from './docs/swagger';
-import { hotelRoutes } from './routes/v1';
+import { hotelRoutes, availabilityRoutes } from './routes/v1';
 import { sequelize } from './database/configuration';
 
 async function dbConnection(): Promise<void> {
@@ -33,6 +34,8 @@ function routes(app: Application): void {
   app.use(DOCUMENTATION_PATH, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
   console.log({ HOTEL_PATH });
   app.use(HOTEL_PATH, hotelRoutes);
+  console.log({ AVAILABILITY_PATH });
+  app.use(AVAILABILITY_PATH, availabilityRoutes);
 }
 
 function listen(app: Application, port: string): void {

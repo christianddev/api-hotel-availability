@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { SERVER_LOGGING } from '../config';
+import { SERVER_LOGGING } from '../../config';
 
 export const Logger = (
   req: Request,

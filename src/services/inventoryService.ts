@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import {
   EXCLUDE_ORM_FIELDS,
   EXCLUDE_TEMPORARY_DELETED,
@@ -33,6 +35,33 @@ export const findAllInventoryByRateId = async (
     return inventories as unknown as Inventory[];
   } catch (error) {
     throwError('findAllInventoryByRateId:', error);
+  }
+};
+
+export const findAllInventoryByRateIdAndCheckDates = async (
+  { rateId, checkIn, checkOut },
+  excludeTemporaryDeleted: boolean = EXCLUDE_TEMPORARY_DELETED,
+  excludeORMFields: boolean = EXCLUDE_ORM_FIELDS
+): Promise<Inventory[] | undefined> => {
+  try {
+    const inventories = await InventoryModel?.findAll({
+      where: {
+        rateId,
+        date: {
+          [Op.gte]: checkIn,
+          [Op.lte]: checkOut
+        },
+        ...(excludeTemporaryDeleted && { isDeleted: false })
+      },
+      attributes: {
+        exclude: excludeORMFields
+          ? [...SEQUELIZE_FIELDS, RATE_FK_ID_FIELD_NAME_SEQUELIZE]
+          : ['']
+      }
+    });
+    return inventories as unknown as Inventory[];
+  } catch (error) {
+    throwError('findAllInventoryByRateIdAndCheckDates:', error);
   }
 };
 
