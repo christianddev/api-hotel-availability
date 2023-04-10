@@ -20,7 +20,7 @@ import type {
 } from '../types';
 import { getDateFormatted } from './utils';
 
-const calculateBreakdownInventory = async (
+const getBreakdownByInventoryDate = async (
   inventoriesByRateId: Inventory[]
 ): Promise<BreakdownByRate> => {
   const breakdownInventory: BreakdownByRate = {};
@@ -38,12 +38,17 @@ const calculateBreakdownInventory = async (
   return breakdownInventory;
 };
 
-const calculateInventoriesByRoom = async (
-  ratesByRooms: Rate[],
-  checkIn: Date,
-  checkOut: Date,
-  roomCode: string
-): Promise<AvailabilityByHotel> => {
+const getInventoriesByRates = async ({
+  ratesByRooms,
+  checkIn,
+  checkOut,
+  room
+}: {
+  ratesByRooms: Rate[];
+  checkIn: Date;
+  checkOut: Date;
+  room: Room;
+}): Promise<AvailabilityByHotel> => {
   const inventoriesByRoom: AvailabilityByHotel = {};
 
   for (const rate of ratesByRooms) {
@@ -55,19 +60,25 @@ const calculateInventoriesByRoom = async (
 
     if (inventoriesByRateId?.length) {
       const breakdownInventory: BreakdownByRate =
-        await calculateBreakdownInventory(inventoriesByRateId);
+        await getBreakdownByInventoryDate(inventoriesByRateId);
 
       const rateInventory: RatesByRoom = {};
-      rateInventory[rate.code] = { breakdown: { ...breakdownInventory } };
+      rateInventory[rate.code] = {
+        name: rate?.name,
+        breakdown: { ...breakdownInventory }
+      };
 
-      inventoriesByRoom[roomCode] = { rates: { ...rateInventory } };
+      inventoriesByRoom[room?.code] = {
+        name: room?.name,
+        rates: { ...rateInventory }
+      };
     }
   }
 
   return inventoriesByRoom;
 };
 
-const calculateInventories = async (
+const getInventoriesByRooms = async (
   roomsByHotel: Room[],
   checkIn: Date,
   checkOut: Date
@@ -79,12 +90,12 @@ const calculateInventories = async (
 
     if (ratesByRooms?.length) {
       const inventoriesByRoom: AvailabilityByHotel =
-        await calculateInventoriesByRoom(
+        await getInventoriesByRates({
           ratesByRooms,
           checkIn,
           checkOut,
-          room?.code
-        );
+          room
+        });
 
       if (Object.keys(inventoriesByRoom).length) {
         Object.assign(inventories, inventoriesByRoom);
@@ -116,7 +127,7 @@ export const getAvailabilitiesByHotelCodeAndCheckDays = async (
       return res.status(httpStatus.OK).json({ data: { rooms: [] } });
     }
 
-    const inventories: AvailabilityByHotel = await calculateInventories(
+    const inventories: AvailabilityByHotel = await getInventoriesByRooms(
       roomsByHotel,
       checkIn,
       checkOut

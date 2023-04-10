@@ -25,6 +25,7 @@ export type BreakdownByRate = Record<
 export type RatesByRoom = Record<
   string,
   {
+    name: string;
     breakdown: BreakdownByRate;
   }
 >;
@@ -32,6 +33,7 @@ export type RatesByRoom = Record<
 export type AvailabilityByHotel = Record<
   string,
   {
+    name: string;
     rates: RatesByRoom;
   }
 >;
