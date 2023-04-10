@@ -9,9 +9,9 @@ services:
       - DATABASE_PASSWORD=
       - DATABASE_HOST=db
       - NODE_ENV=production
-      - SERVER_PORT=8000
+      - SERVER_PORT=80
     ports:
-      - 8000:8000
+      - 8000:80
     volumes:
       - ./src:/code/src:ro
       - ./package.json:/code/package.json
