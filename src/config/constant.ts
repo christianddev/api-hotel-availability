@@ -24,7 +24,7 @@ export const HOTEL_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_U
 export const ROOM_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_ROOM}`;
 
 // DATABASE BASE CONFIG
-export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
+export const DATABASE_PORT: number = Number(process.env.DATABASE_PORT) ?? 3306;
 export const DATABASE_NAME: string =
   process.env.DATABASE_NAME ?? 'hotel_availability';
 export const DATABASE_USER: string = process.env.DATABASE_USER ?? 'root';

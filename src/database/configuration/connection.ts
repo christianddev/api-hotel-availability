@@ -11,8 +11,8 @@ import {
   DATABASE_DIALECT
 } from '../../config/constant';
 
-const port = DATABASE_PORT !== '' ? `:${DATABASE_PORT}` : '';
-const host = `${DATABASE_HOST}${port}`;
+const port = DATABASE_PORT;
+const host = DATABASE_HOST;
 const logging = DATABASE_LOGGING;
 const database = DATABASE_NAME;
 const username = DATABASE_USER;
@@ -24,6 +24,7 @@ const options: Options = {
   username,
   password,
   host,
+  port,
   dialect,
   logging
 };
