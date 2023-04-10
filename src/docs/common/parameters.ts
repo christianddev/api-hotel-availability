@@ -43,6 +43,24 @@ const swaggerDefinition: OAS3Definition = {
         schema: {
           type: 'string'
         }
+      },
+      checkInDate: {
+        name: 'checkInDate',
+        in: 'path',
+        description: 'Date of the inventory to retrieve',
+        required: true,
+        schema: {
+          type: 'string'
+        }
+      },
+      checkOutDate: {
+        name: 'checkOutDate',
+        in: 'path',
+        description: 'Date of the inventory to retrieve',
+        required: true,
+        schema: {
+          type: 'string'
+        }
       }
     }
   }
