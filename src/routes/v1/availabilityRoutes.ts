@@ -4,10 +4,12 @@ import { Router } from 'express';
 import {} from '../../controllers';
 import {
   Logger,
-  validatesHotelCodeParam,
-  validatesCheckOutDateParam,
   validatesCheckInDateParam,
-  validatesHotelByCodeHasNotBeenDeleted
+  validatesCheckInDateType,
+  validatesCheckOutDateParam,
+  validatesCheckOutDateType,
+  validatesHotelByCodeHasNotBeenDeleted,
+  validatesHotelCodeParam
 } from '../../middleware';
 import { getAvailabilitiesByHotelCodeAndCheckDays } from '../../controllers/';
 
@@ -39,7 +41,9 @@ availabilityRouter.get(
     Logger,
     validatesHotelCodeParam,
     validatesCheckInDateParam,
+    validatesCheckInDateType,
     validatesCheckOutDateParam,
+    validatesCheckOutDateType,
     validatesHotelByCodeHasNotBeenDeleted
   ],
   getAvailabilitiesByHotelCodeAndCheckDays

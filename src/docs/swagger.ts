@@ -19,7 +19,7 @@ const swaggerDefinition: OAS3Definition = {
       url: `http://localhost:${SERVER_PORT}`
     },
     {
-      url: `${SERVER_ENVIRONMENT}:${SERVER_PORT}`
+      url: `${SERVER_ENVIRONMENT}`
     }
   ],
   components: {
