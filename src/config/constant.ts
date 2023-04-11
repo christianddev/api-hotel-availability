@@ -4,7 +4,8 @@ import type { Dialect } from 'sequelize';
 dotenv.config();
 
 // API
-export const SERVER_PORT = process.env.SERVER_PORT ?? '8000';
+export const SERVER_PORT =
+  process.env.PORT ?? process.env.SERVER_PORT ?? '8000';
 export const SERVER_ENVIRONMENT =
   process.env.SERVER_ENVIRONMENT ?? 'development';
 export const SERVER_PUBLIC_DIR = process.env.SERVER_PUBLIC_DIR ?? 'public';
@@ -26,7 +27,7 @@ export const ROOM_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_UR
 export const AVAILABILITY_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_URL_AVAILABILITY}`;
 
 // DATABASE BASE CONFIG
-export const DATABASE_PORT: string = process.env.DATABASE_PORT ?? '';
+export const DATABASE_PORT: number = Number(process.env.DATABASE_PORT) ?? 3306;
 export const DATABASE_NAME: string =
   process.env.DATABASE_NAME ?? 'hotel_availability';
 export const DATABASE_USER: string = process.env.DATABASE_USER ?? 'root';
