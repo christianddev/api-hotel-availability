@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+PUBLIC "-//W3C//DTD SVG 1.1//EN"
+       "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="193 140 1027 370" width="834px" height="230px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+   <line x1="926" y1="225" x2="916" y2="225" style="stroke:#b0b;stroke-width:1;"/>
+   <line x1="790" y1="185" x2="780" y2="185" style="stroke:#b0b;stroke-width:1;"/>
+   <line x1="916" y1="225" x2="790" y2="185" style="stroke:#b0b;stroke-width:1;"/>
+   <line x1="918.5" y1="225" x2="922.03553390593" y2="228.53553390593" style="stroke:#b0b;stroke-width:2;"/>
+   <line x1="918.5" y1="225" x2="922.03553390593" y2="221.46446609407" style="stroke:#b0b;stroke-width:2;"/>
+   <line x1="785" y1="185" x2="788.53553390593" y2="188.53553390593" style="stroke:#b0b;stroke-width:2;"/>
+   <line x1="785" y1="185" x2="788.53553390593" y2="181.46446609407" style="stroke:#b0b;stroke-width:2;"/>
+   <line x1="694" y1="245" x2="684" y2="245" style="stroke:#cb0;stroke-width:1;"/>
+   <line x1="533" y1="190" x2="523" y2="190" style="stroke:#cb0;stroke-width:1;"/>
+   <line x1="684" y1="245" x2="533" y2="190" style="stroke:#cb0;stroke-width:1;"/>
+   <line x1="686.5" y1="245" x2="690.03553390593" y2="248.53553390593" style="stroke:#cb0;stroke-width:2;"/>
+   <line x1="686.5" y1="245" x2="690.03553390593" y2="241.46446609407" style="stroke:#cb0;stroke-width:2;"/>
+   <line x1="528" y1="190" x2="531.53553390593" y2="193.53553390593" style="stroke:#cb0;stroke-width:2;"/>
+   <line x1="528" y1="190" x2="531.53553390593" y2="186.46446609407" style="stroke:#cb0;stroke-width:2;"/>
+   <line x1="437" y1="250" x2="427" y2="250" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="304" y1="193" x2="294" y2="193" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="427" y1="250" x2="304" y2="193" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="429.5" y1="250" x2="433.03553390593" y2="253.53553390593" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="429.5" y1="250" x2="433.03553390593" y2="246.46446609407" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="299" y1="193" x2="302.53553390593" y2="196.53553390593" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="299" y1="193" x2="302.53553390593" y2="189.46446609407" style="stroke:#bbb;stroke-width:2;"/>
+   <rect width="86" height="20" x="208" y="163" style="fill:#007;stroke:black;"/>
+   <text width="86" height="20" x="213" y="177" style="fill:#fff;" font-family="Arial" font-size="16px"> hotels</text>
+   <rect width="86" height="20" x="208" y="183" style="fill:#aea;stroke:black;"/>
+   <text width="86" height="20" x="213" y="197" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="86" height="20" x="208" y="203" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="213" y="217" style="fill:black;" font-family="Arial" font-size="16px">code</text>
+   <rect width="86" height="20" x="208" y="223" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="213" y="237" style="fill:black;" font-family="Arial" font-size="16px">name</text>
+   <rect width="86" height="20" x="208" y="243" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="213" y="257" style="fill:black;" font-family="Arial" font-size="16px">is_deleted</text>
+   <rect width="86" height="20" x="208" y="263" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="213" y="277" style="fill:black;" font-family="Arial" font-size="16px">created_at</text>
+   <rect width="86" height="20" x="208" y="283" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="213" y="297" style="fill:black;" font-family="Arial" font-size="16px">updated_at</text>
+   <rect width="86" height="20" x="926" y="155" style="fill:#007;stroke:black;"/>
+   <text width="86" height="20" x="931" y="169" style="fill:#fff;" font-family="Arial" font-size="16px"> inventories</text>
+   <rect width="86" height="20" x="926" y="175" style="fill:#aea;stroke:black;"/>
+   <text width="86" height="20" x="931" y="189" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="86" height="20" x="926" y="195" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="209" style="fill:black;" font-family="Arial" font-size="16px">date</text>
+   <rect width="86" height="20" x="926" y="215" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="229" style="fill:black;" font-family="Arial" font-size="16px">rate_id</text>
+   <rect width="86" height="20" x="926" y="235" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="249" style="fill:black;" font-family="Arial" font-size="16px">price</text>
+   <rect width="86" height="20" x="926" y="255" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="269" style="fill:black;" font-family="Arial" font-size="16px">availability</text>
+   <rect width="86" height="20" x="926" y="275" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="289" style="fill:black;" font-family="Arial" font-size="16px">is_deleted</text>
+   <rect width="86" height="20" x="926" y="295" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="309" style="fill:black;" font-family="Arial" font-size="16px">created_at</text>
+   <rect width="86" height="20" x="926" y="315" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="931" y="329" style="fill:black;" font-family="Arial" font-size="16px">updated_at</text>
+   <rect width="86" height="20" x="694" y="155" style="fill:#007;stroke:black;"/>
+   <text width="86" height="20" x="699" y="169" style="fill:#fff;" font-family="Arial" font-size="16px"> rates</text>
+   <rect width="86" height="20" x="694" y="175" style="fill:#aea;stroke:black;"/>
+   <text width="86" height="20" x="699" y="189" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="86" height="20" x="694" y="195" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="209" style="fill:black;" font-family="Arial" font-size="16px">code</text>
+   <rect width="86" height="20" x="694" y="215" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="229" style="fill:black;" font-family="Arial" font-size="16px">name</text>
+   <rect width="86" height="20" x="694" y="235" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="249" style="fill:black;" font-family="Arial" font-size="16px">room_id</text>
+   <rect width="86" height="20" x="694" y="255" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="269" style="fill:black;" font-family="Arial" font-size="16px">is_deleted</text>
+   <rect width="86" height="20" x="694" y="275" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="289" style="fill:black;" font-family="Arial" font-size="16px">check_in</text>
+   <rect width="86" height="20" x="694" y="295" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="309" style="fill:black;" font-family="Arial" font-size="16px">check_out</text>
+   <rect width="86" height="20" x="694" y="315" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="329" style="fill:black;" font-family="Arial" font-size="16px">created_at</text>
+   <rect width="86" height="20" x="694" y="335" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="699" y="349" style="fill:black;" font-family="Arial" font-size="16px">updated_at</text>
+   <rect width="86" height="20" x="437" y="160" style="fill:#007;stroke:black;"/>
+   <text width="86" height="20" x="442" y="174" style="fill:#fff;" font-family="Arial" font-size="16px"> rooms</text>
+   <rect width="86" height="20" x="437" y="180" style="fill:#aea;stroke:black;"/>
+   <text width="86" height="20" x="442" y="194" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="86" height="20" x="437" y="200" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="214" style="fill:black;" font-family="Arial" font-size="16px">code</text>
+   <rect width="86" height="20" x="437" y="220" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="234" style="fill:black;" font-family="Arial" font-size="16px">name</text>
+   <rect width="86" height="20" x="437" y="240" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="254" style="fill:black;" font-family="Arial" font-size="16px">hotel_id</text>
+   <rect width="86" height="20" x="437" y="260" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="274" style="fill:black;" font-family="Arial" font-size="16px">is_deleted</text>
+   <rect width="86" height="20" x="437" y="280" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="294" style="fill:black;" font-family="Arial" font-size="16px">created_at</text>
+   <rect width="86" height="20" x="437" y="300" style="fill:none;stroke:black;"/>
+   <text width="86" height="20" x="442" y="314" style="fill:black;" font-family="Arial" font-size="16px">updated_at</text>
+</svg>
