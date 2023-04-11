@@ -15,7 +15,8 @@
 
 - Before running the application, you must configure the database.
   In [./sql](./sql/hotel_availability_base.sql), you have available a SQL file with the database structure, you can import this file from a SQL client, remember to create the database first and then import the structure using [this](./sql/hotel_availability_base.sql) file.
-- you must define the values of the configuration variables, you can use the [env-example](./env-example) file as for the configuration of the environment variables.
+- You must define the values of the configuration variables, you can use the [env-example](./env-example) file as for the configuration of the environment variables.
+- In the [json](./assets/HotelAvailability.postman_collection.json) file you have the collection available to test the application from postman
 
 ### 🚀 Quick Start
 

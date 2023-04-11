@@ -1,0 +1,604 @@
+{
+	"info": {
+		"_postman_id": "e68698c3-8f71-49ee-bd50-b4f38e889583",
+		"name": "HotelAvailability",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13349139"
+	},
+	"item": [
+		{
+			"name": "Hotels",
+			"item": [
+				{
+					"name": "hotels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hotel by code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/H001",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"H001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hotel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"code123\",\r\n    \"name\": \"eeee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hotel",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"gasdasdggg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/code1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"code1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hotel by code",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/code3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"code3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Availability",
+			"item": [
+				{
+					"name": "availability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/availability/AAA123/01-01-2023/01-02-2023",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"availability",
+								"AAA123",
+								"01-01-2023",
+								"01-02-2023"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "room by code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AAA\",\r\n    \"code\": \"R00z1-1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/H002/rooms",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"H002",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "room",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \":-)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/H001/rooms/R002",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"H001",
+								"rooms",
+								"R002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "room by code",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM201",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM201"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rates",
+			"item": [
+				{
+					"name": "rates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM201/rates",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM201",
+								"rates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rate by code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM201/rates/R009",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM201",
+								"rates",
+								"R009"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"code\": \"R007XZ\",\r\n            \"name\": \"ExtendedXStayXRate\",\r\n            \"checkIn\": \"2023-05-20T14:00:00.000Z\",\r\n            \"checkout\": \"2023-06-21T12:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM201/rates/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM201",
+								"rates",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rate",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Holiday Rate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/AAA123/rooms/RM103/rates/R005",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"AAA123",
+								"rooms",
+								"RM103",
+								"rates",
+								"R005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rate by code",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202/rates/R009",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202",
+								"rates",
+								"R009"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Inventories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM201/rates/R001/inventories",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM201",
+								"rates",
+								"R001",
+								"inventories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202/rates/R001/inventories/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202",
+								"rates",
+								"R001",
+								"inventories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"code\": \"R007XZ\",\r\n            \"name\": \"ExtendedXStayXRate\",\r\n            \"checkIn\": \"2023-05-20T14:00:00.000Z\",\r\n            \"checkout\": \"2023-06-21T12:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202/rates/R010/inventories",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202",
+								"rates",
+								"R010",
+								"inventories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \":-)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202/rates/R010/inventories/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202",
+								"rates",
+								"R010",
+								"inventories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/hotels/BBB456/rooms/RM202/rates/R010/inventories/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"BBB456",
+								"rooms",
+								"RM202",
+								"rates",
+								"R010",
+								"inventories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
