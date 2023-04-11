@@ -18,7 +18,7 @@ export const SERVER_LOGGING = Boolean(process.env.SERVER_LOGGING);
 export const SERVER_URL_HOTEL = process.env.SERVER_URL_HOTEL ?? 'hotels';
 export const SERVER_URL_ROOM = process.env.SERVER_URL_ROOM ?? 'rooms';
 export const SERVER_URL_AVAILABILITY =
-  process.env.SERVER_URL_AVAILABILITY ?? 'availability';
+  process.env.SERVER_URL_AVAILABILITY ?? '/availability';
 export const SERVER_DOCUMENTATION_URL =
   process.env.SERVER_DOCUMENTATION_URL ?? '/documentation';
 export const DOCUMENTATION_PATH = `${SERVER_BASE_URL}${SERVER_API_VERSION_URL}${SERVER_DOCUMENTATION_URL}`;
